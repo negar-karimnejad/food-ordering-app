@@ -1,6 +1,5 @@
 import Menu from "@/components/shared/Menu";
 import SectionHeader from "@/components/ui/SectionHeader";
-import React from "react";
 
 export default function page() {
   return (

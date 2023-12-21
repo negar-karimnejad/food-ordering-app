@@ -1,11 +1,10 @@
-import React from "react";
 import SectionHeader from "../ui/SectionHeader";
 
 export default function About() {
   return (
     <section className="px-10 sm:px-24 my-20">
       <SectionHeader smallTitle="Our story" mainTitle="About us" />
-      <div className="text-gray-500 max-w-md mx-auto mt-4 flex flex-col gap-4">
+      <div className="text-gray-500 text-center max-w-md mx-auto mt-4 flex flex-col gap-4">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni minima
           odit recusandae. Illum ipsa non repudiandae? Eum ipsam iste quos

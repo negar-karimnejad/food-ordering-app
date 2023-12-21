@@ -1,7 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
-import RightArrow from "../ui/RightArrow";
 import Button from "../ui/Button";
+import RightArrow from "../ui/RightArrow";
 
 export default function Hero() {
   return (
@@ -20,7 +19,7 @@ export default function Hero() {
           <Button type="text">
             ORDER NOW <RightArrow />
           </Button>
-          <Button type="text" className="bg-transparent text-gray-800">
+          <Button type="text" className="bg-transparent text-slate-700">
             Learm more <RightArrow />
           </Button>
         </div>

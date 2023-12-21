@@ -11,18 +11,11 @@ export default function Login() {
 
   const loginUser = async (e) => {
     e.preventDefault();
-    const response = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-    console.log(response);
+    //
   };
 
   return (
-    <div className="w-screen flex items-center justify-center">
+    <div className="flex items-center justify-center">
       <div className="p-5 w-[350px] mt-16 flex flex-col gap-3 items-center justify-center">
         <h1 className="text-3xl text-primary font-extrabold">Login</h1>
         <form onSubmit={loginUser} className="flex flex-col gap-2 w-full">
@@ -45,7 +38,10 @@ export default function Login() {
           </Button>
         </form>
         <p className="text-gray-600">or login with provider</p>
-        <Button className="w-full bg-transparent rounded-lg text-slate-700 border">
+        <Button
+          onClick={() => signIn("github")}
+          className="w-full bg-transparent rounded-lg text-slate-800 border"
+        >
           <Image
             className="mr-2"
             src="/google.png"
@@ -53,7 +49,7 @@ export default function Login() {
             height={20}
             alt="google logo"
           />
-          Login with google
+          Login with github
         </Button>
       </div>
     </div>

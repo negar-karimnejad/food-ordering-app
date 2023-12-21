@@ -41,7 +41,7 @@ export default function Navbar() {
       ) : (
         <div className="flex items-center gap-2">
           <Link href="/login">
-            <Button className="bg-transparent text-slate-700">Login</Button>
+            <Button className="bg-transparent text-slate-800">Login</Button>
           </Link>
           <Link href="/register">
             <Button className="px-6 py-2">Register</Button>

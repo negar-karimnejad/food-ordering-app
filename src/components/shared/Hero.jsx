@@ -5,7 +5,7 @@ import Button from "../ui/Button";
 
 export default function Hero() {
   return (
-    <div className="px-10 sm:px-24 flex items-center gap-5">
+    <div className="px-10 sm:px-24 my-10 flex items-center gap-5">
       <div className="flex flex-col flex-1 gap-5">
         <h2 className="font-extrabold text-5xl">
           Everything
@@ -20,7 +20,7 @@ export default function Hero() {
           <Button type="text">
             ORDER NOW <RightArrow />
           </Button>
-          <Button type="text" className="bg-transparent text-gray-700">
+          <Button type="text" className="bg-transparent text-gray-800">
             Learm more <RightArrow />
           </Button>
         </div>

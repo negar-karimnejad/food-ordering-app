@@ -7,9 +7,9 @@ export default function Navbar() {
     <div className="px-24 py-5 flex justify-between items-center">
       <div className="flex items-center gap-8">
         <Link href="/">
-          <h1 className="text-primary font-extrabold text-xl">ST PIZZA</h1>
+          <h1 className="text-primary font-extrabold text-2xl">ST PIZZA</h1>
         </Link>
-        <ul className="text-gray-500 font-bold gap-4 md:flex hidden">
+        <ul className="text-gray-500 font-bold gap-6 md:flex hidden">
           <li>
             <Link href="/">Home</Link>
           </li>
@@ -26,7 +26,7 @@ export default function Navbar() {
       </div>
       <div className="flex items-center">
         <Link href="/login">
-          <Button className="bg-transparent text-gray-700">Sign in</Button>
+          <Button className="bg-transparent text-gray-800">Sign in</Button>
         </Link>
         <Link href="/register">
           <Button>Sign up</Button>

@@ -5,7 +5,7 @@ import Button from "../ui/Button";
 
 export default function Hero() {
   return (
-    <div className="p-24 flex items-center gap-5">
+    <div className="px-10 sm:px-24 flex items-center gap-5">
       <div className="flex flex-col flex-1 gap-5">
         <h2 className="font-extrabold text-5xl">
           Everything

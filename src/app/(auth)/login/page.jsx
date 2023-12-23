@@ -1,9 +1,10 @@
 "use client";
 
 import Button from "@/components/ui/Button";
+import Github from "@/components/ui/Github";
 import Input from "@/components/ui/Input";
-import Image from "next/image";
-import React, { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -11,7 +12,11 @@ export default function Login() {
 
   const loginUser = async (e) => {
     e.preventDefault();
-    //
+    await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
   };
 
   return (
@@ -21,15 +26,17 @@ export default function Login() {
         <form onSubmit={loginUser} className="flex flex-col gap-2 w-full">
           <Input
             value={email}
-            onChange={() => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             type="text"
             placeholder="email"
+            name="email"
             className="bg-gray-50"
           />
           <Input
             value={password}
-            onChange={() => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             type="password"
+            name="password"
             placeholder="password"
             className="bg-gray-50"
           />
@@ -42,14 +49,15 @@ export default function Login() {
           onClick={() => signIn("github")}
           className="w-full bg-transparent rounded-lg text-slate-800 border"
         >
-          <Image
+          {/* <Image
             className="mr-2"
             src="/google.png"
             width={20}
             height={20}
             alt="google logo"
-          />
-          Login with github
+          /> */}
+          <Github />
+          <span className="ml-2">Login with github</span>
         </Button>
       </div>
     </div>

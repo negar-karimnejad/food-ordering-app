@@ -1,24 +1,28 @@
 "use client";
 
 import Button from "@/components/ui/Button";
+import Github from "@/components/ui/Github";
 import Input from "@/components/ui/Input";
-import Image from "next/image";
-import React, { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
+import { useState } from "react";
 
 export default function Register() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const registerUser = async (e) => {
     e.preventDefault();
-    const response = await fetch("/api/register", {
+    await fetch("/api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
     });
-    console.log(response);
+    router.push("/login");
   };
 
   return (
@@ -40,24 +44,24 @@ export default function Register() {
             placeholder="password"
             className="bg-gray-50"
           />
-          <Button
-            onClick={() => signIn("github")}
-            type="submit"
-            className="rounded-lg"
-          >
+          <Button type="submit" className="rounded-lg">
             Register
           </Button>
         </form>
         <p className="text-gray-600">or login with provider</p>
-        <Button className="w-full bg-transparent rounded-lg text-gray-800 border">
-          <Image
+        <Button
+          onClick={() => signIn("github")}
+          className="w-full bg-transparent rounded-lg text-gray-800 border"
+        >
+          {/* <Image
             className="mr-2"
             src="/google.png"
             width={20}
             height={20}
             alt="google logo"
-          />
-          Login with github
+          /> */}
+          <Github />
+          <span className="ml-2">Login with github</span>
         </Button>
       </div>
     </div>

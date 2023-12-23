@@ -5,7 +5,7 @@ import Github from "@/components/ui/Github";
 import Input from "@/components/ui/Input";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
+import { toast } from "react-toastify";
 import { useState } from "react";
 
 export default function Register() {
@@ -16,16 +16,22 @@ export default function Register() {
   const registerUser = async (e) => {
     e.preventDefault();
     try {
-      await fetch("/api/register", {
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
-      router.push("/login");
+      if (res.ok) {
+        router.push("/login");
+      }
+      if (res.error) {
+        toast.error(res.error);
+        alert("fgb")
+      }
     } catch (error) {
-      throw new Error(error.message);
+      toast.error(error);
     }
   };
 

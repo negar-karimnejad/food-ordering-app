@@ -4,6 +4,8 @@ import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import AuthProvider from "./utils/AuthProvider";
 import { getServerSession } from "next-auth";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] });
 
@@ -20,6 +22,7 @@ export default async function RootLayout({ children }) {
         <AuthProvider session={session}>
           <Navbar />
           {children}
+          <ToastContainer />
           <Footer />
         </AuthProvider>
       </body>

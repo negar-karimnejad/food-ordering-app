@@ -2,6 +2,7 @@
 
 import Button from "@/components/ui/Button";
 import Github from "@/components/ui/Github";
+import Google from "@/components/ui/Google";
 import Input from "@/components/ui/Input";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -56,18 +57,18 @@ export default function Login() {
         </form>
         <p className="text-gray-600">or login with provider</p>
         <Button
-          onClick={() => signIn("github")}
+          onClick={() => signIn("github", { callbackUrl: "/" })}
           className="w-full bg-transparent rounded-lg text-slate-800 border"
         >
-          {/* <Image
-            className="mr-2"
-            src="/google.png"
-            width={20}
-            height={20}
-            alt="google logo"
-          /> */}
           <Github />
           <span className="ml-2">Login with github</span>
+        </Button>
+        <Button
+          onClick={() => signIn("google", { callbackUrl: "/" })}
+          className="w-full bg-transparent rounded-lg text-slate-800 border"
+        >
+          <Google />
+          <span className="ml-2">Login with google</span>
         </Button>
       </div>
     </div>

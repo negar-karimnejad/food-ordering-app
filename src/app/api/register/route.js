@@ -1,9 +1,9 @@
 import connectDB from "@/app/utils/db";
-import User from "../../../../model/User";
 import { NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
+import User from "../../../../model/User";
 
-export async function POST(req, res) {
+
+export async function POST(req) {
   const { email, password } = await req.json();
 
   await connectDB();
@@ -11,9 +11,12 @@ export async function POST(req, res) {
   const existingUser = await User.findOne({ email });
 
   if (existingUser) {
-    return new NextResponse(JSON.stringify({ error: "User alredy exists." }), {
-      status: 400,
-    });
+    return NextResponse.json(
+      { error: "User alredy exists." },
+      {
+        status: 400,
+      }
+    );
   }
 
   const newUser = new User({ email, password });
@@ -24,5 +27,4 @@ export async function POST(req, res) {
   } catch (error) {
     return new NextResponse(error, { status: 500 });
   }
-  revalidatePath("")
 }

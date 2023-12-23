@@ -1,11 +1,13 @@
+"use client";
 import Link from "next/link";
 import React from "react";
 import Button from "../ui/Button";
 import ShoppingCart from "../ui/ShoppingCart";
+import { useSession } from "next-auth/react";
 
 export default function Navbar() {
-  const user = false;
-
+  const session = useSession();
+  console.log(session);
   return (
     <div className="sm:px-24 px-10 py-5 flex justify-between items-center">
       <div className="flex items-center gap-8">
@@ -27,9 +29,11 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
-      {user ? (
+      {session.status === "authenticated" ? (
         <div className="flex items-center gap-5">
-          <p className="font-bold text-gray-600 sm:block hidden">Hello, Dear</p>
+          <p className="font-bold text-gray-600 sm:block hidden">
+            Hello, Dear{session.data?.user.email}
+          </p>
           <Button className="px-8 py-2">Logout</Button>
           <div className="relative">
             <ShoppingCart />

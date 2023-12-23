@@ -4,19 +4,29 @@ import Button from "@/components/ui/Button";
 import Github from "@/components/ui/Github";
 import Input from "@/components/ui/Input";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Login() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const loginUser = async (e) => {
     e.preventDefault();
-    await signIn("credentials", {
-      redirect: false,
+    const res = await signIn("credentials", {
       email,
       password,
+      redirect: false,
     });
+    if (res?.error) {
+      if (res?.url) {
+        router.replace("/");
+      }
+      console.log("invalid values");
+    } else {
+      console.log("successfully logged in values");
+    }
   };
 
   return (

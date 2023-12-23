@@ -15,14 +15,18 @@ export default function Register() {
 
   const registerUser = async (e) => {
     e.preventDefault();
-    await fetch("/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-    router.push("/login");
+    try {
+      await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      router.push("/login");
+    } catch (error) {
+      throw new Error(error.message);
+    }
   };
 
   return (

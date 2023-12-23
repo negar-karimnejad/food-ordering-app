@@ -5,11 +5,10 @@ import Github from "@/components/ui/Github";
 import Google from "@/components/ui/Google";
 import Input from "@/components/ui/Input";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Login() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,13 +19,10 @@ export default function Login() {
       password,
       callbackUrl: "/",
     });
-    if (res?.error) {
-      if (res?.url) {
-        router.replace("/");
-      }
-      console.log("invalid values");
+    if (!res.ok) {
+      toast.error("invalid Credentials.");
     } else {
-      console.log("successfully logged in values");
+      toast.success("successfully logged in.");
     }
   };
 
@@ -55,10 +51,10 @@ export default function Login() {
             Login
           </Button>
         </form>
-        <p className="text-gray-600">or login with provider</p>
+        <p className="text-gray-600">or login with providers</p>
         <Button
           onClick={() => signIn("github", { callbackUrl: "/" })}
-          className="w-full bg-transparent rounded-lg text-slate-800 border"
+          className="w-full bg-black rounded-lg text-gray-50 border"
         >
           <Github />
           <span className="ml-2">Login with github</span>

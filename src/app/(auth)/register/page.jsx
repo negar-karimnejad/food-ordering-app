@@ -2,11 +2,12 @@
 
 import Button from "@/components/ui/Button";
 import Github from "@/components/ui/Github";
+import Google from "@/components/ui/Google";
 import Input from "@/components/ui/Input";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const router = useRouter();
@@ -24,11 +25,11 @@ export default function Register() {
         body: JSON.stringify({ email, password }),
       });
       if (res.ok) {
+        toast.success("You registered successfully.");
         router.push("/login");
       }
-      if (res.error) {
-        toast.error(res.error);
-        alert("fgb")
+      if (res.status === 400) {
+        toast.error("User already exists.");
       }
     } catch (error) {
       toast.error(error);
@@ -58,20 +59,20 @@ export default function Register() {
             Register
           </Button>
         </form>
-        <p className="text-gray-600">or login with provider</p>
+        <p className="text-gray-600">or login with providers</p>
         <Button
           onClick={() => signIn("github")}
-          className="w-full bg-transparent rounded-lg text-gray-800 border"
+          className="w-full bg-black rounded-lg text-gray-50 border"
         >
-          {/* <Image
-            className="mr-2"
-            src="/google.png"
-            width={20}
-            height={20}
-            alt="google logo"
-          /> */}
           <Github />
           <span className="ml-2">Login with github</span>
+        </Button>
+        <Button
+          onClick={() => signIn("google", { callbackUrl: "/" })}
+          className="w-full bg-transparent rounded-lg text-slate-800 border"
+        >
+          <Google />
+          <span className="ml-2">Login with google</span>
         </Button>
       </div>
     </div>

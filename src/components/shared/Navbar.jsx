@@ -10,7 +10,6 @@ import ShoppingCart from "../ui/ShoppingCart";
 export default function Navbar() {
   const session = useSession();
 
-
   return (
     <>
       {session.status === "loading" && (
@@ -38,15 +37,25 @@ export default function Navbar() {
             </li>
           </ul>
         </div>
+
         {session.status === "authenticated" ? (
           <div className="flex items-center gap-5">
-            <Image
-              src={session.data.user.image}
-              width={40}
-              height={40}
-              className="rounded-full"
-              alt="user image"
-            />
+            {session.data.user.image ? (
+              <Image
+                src={session.data.user.image}
+                width={40}
+                height={40}
+                className="rounded-full"
+                alt="user image"
+              />
+            ) : (
+              <p className="font-bold text-gray-600 sm:block hidden">
+                Hello, Dear{" "}
+                <span className="capitalize text-primary">
+                  {session.data?.user.email.split("@", 1)}
+                </span>
+              </p>
+            )}
             <Button className="px-8 py-2" onClick={() => signOut()}>
               Logout
             </Button>

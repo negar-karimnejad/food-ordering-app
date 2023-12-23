@@ -3,11 +3,13 @@ import Link from "next/link";
 import React from "react";
 import Button from "../ui/Button";
 import ShoppingCart from "../ui/ShoppingCart";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 
 export default function Navbar() {
   const session = useSession();
   console.log(session);
+
   return (
     <div className="sm:px-24 px-10 py-5 flex justify-between items-center">
       <div className="flex items-center gap-8">
@@ -31,10 +33,16 @@ export default function Navbar() {
       </div>
       {session.status === "authenticated" ? (
         <div className="flex items-center gap-5">
-          <p className="font-bold text-gray-600 sm:block hidden">
-            Hello, Dear{session.data?.user.email}
-          </p>
-          <Button className="px-8 py-2">Logout</Button>
+          <Image
+            src={session.data.user.image}
+            width={40}
+            height={40}
+            className="rounded-full"
+            alt="user image"
+          />
+          <Button className="px-8 py-2" onClick={() => signOut()}>
+            Logout
+          </Button>
           <div className="relative">
             <ShoppingCart />
             <span className="w-5 h-5 text-white text-xs flex items-center justify-center bg-primary rounded-full absolute -right-3 -top-2">

@@ -1,7 +1,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
-import User from "../../../model/User";
-import connectDB from "./db";
+import User from "../../../../../model/User";
+import connectDB from "@/app/utils/db";
 
 export const authOptions = {
   providers: [
@@ -18,7 +18,7 @@ export const authOptions = {
       async authorize(credentials, req) {
         await connectDB();
 
-        const user = await User.finOne({ email: credentials.email });
+        const user = await User.findOne({ email: credentials.email });
         if (
           credentials?.email === user.email &&
           credentials?.password === user.password

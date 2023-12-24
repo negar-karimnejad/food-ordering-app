@@ -14,7 +14,7 @@ export default function Profile() {
   const session = useSession();
   const user = session?.data?.user;
   const userEmail = session?.data?.user?.email;
-  console.log(session);
+
   const [fullname, setFullname] = useState(user?.name || "");
   const [phone, setPhone] = useState("");
   const [street, setStreet] = useState("");

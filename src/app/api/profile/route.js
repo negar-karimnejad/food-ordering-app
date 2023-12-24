@@ -10,8 +10,8 @@ export async function PUT(req) {
 
   const session = await getServerSession(authOptions);
   const email = session.user.email;
-  console.log("-----------------------", name);
   const user = await User.findOne({ email });
+  console.log("-----------------------", user);
   await User.updateOne({ email }, { name });
 
   return NextResponse.json({ message: "User updated successfully" });

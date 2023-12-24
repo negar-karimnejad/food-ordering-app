@@ -14,7 +14,7 @@ export default function Navbar() {
   return (
     <>
       {session.status === "loading" && (
-        <div className="absolute w-screen h-screen flex justify-center items-center bg-black/50">
+        <div className="fixed w-screen h-screen flex justify-center items-center bg-black/50">
           <Loader />
         </div>
       )}

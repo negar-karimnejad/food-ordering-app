@@ -25,3 +25,10 @@ export async function GET() {
 
   return NextResponse.json({ ...user });
 }
+
+export async function POST(req) {
+  const data = await req.formData();
+  console.log(data);
+
+  return NextResponse.json({ message: "Profile image updated successfully" });
+}

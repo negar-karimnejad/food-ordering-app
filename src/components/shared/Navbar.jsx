@@ -11,6 +11,7 @@ export default function Navbar() {
   const session = useSession();
   const user = session?.data?.user;
   const username = user?.name || user?.email;
+
   return (
     <>
       {session.status === "loading" && (

@@ -6,6 +6,7 @@ import AuthProvider from "./utils/AuthProvider";
 import { getServerSession } from "next-auth";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] });
 
@@ -20,10 +21,12 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className={roboto.className}>
         <AuthProvider session={session}>
-          <Navbar />
-          {children}
-          <ToastContainer />
-          <Footer />
+          <EdgeStoreProvider>
+            <Navbar />
+            {children}
+            <ToastContainer />
+            <Footer />
+          </EdgeStoreProvider>
         </AuthProvider>
       </body>
     </html>

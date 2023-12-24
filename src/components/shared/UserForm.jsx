@@ -6,9 +6,9 @@ import Input from "../ui/Input";
 import ProfileIcon from "../ui/ProfileIcon";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import EditableImage from "./EditableImage";
 
 export default function UserForm({ user }) {
-  console.log(user);
   const [fullname, setFullname] = useState(user?.name || "");
   const [phone, setPhone] = useState(user?.phone || "");
   const [street, setStreet] = useState(user?.street || "");
@@ -20,6 +20,7 @@ export default function UserForm({ user }) {
 
   const updateUser = async (e) => {
     e.preventDefault();
+    console.log();
     try {
       const res = await fetch("/api/profile", {
         method: "PUT",
@@ -48,22 +49,7 @@ export default function UserForm({ user }) {
 
   return (
     <div className="min-w-[350px] max-w-[600px]  mt-5 flex justify-between items-center gap-5 flex-col sm:flex-row sm:items-start">
-      <div className="rounded-lg flex flex-col items-center gap-1 justify-center">
-        {user?.image ? (
-          <Image
-            src={user?.image}
-            width={90}
-            height={100}
-            className="rounded-lg"
-            alt="user image"
-          />
-        ) : (
-          <ProfileIcon />
-        )}
-        <Button className="rounded-md w-full py-0.5 bg-transparent border text-gray-500">
-          Edit
-        </Button>
-      </div>
+      <EditableImage image={user?.image} setImage={setImage} />
       <form
         onSubmit={updateUser}
         className="flex flex-col gap-3 flex-grow w-full"

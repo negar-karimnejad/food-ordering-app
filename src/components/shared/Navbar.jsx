@@ -51,8 +51,8 @@ export default function Navbar() {
                   alt="user image"
                 />
               ) : (
-                <p className="font-bold text-gray-600 sm:block hidden">
-                  Hello, Dear{" "}
+                <p className="font-bold text-gray-600">
+                  Hi{" "}
                   <span className="capitalize text-primary">
                     {username.split("@", 1)}
                   </span>

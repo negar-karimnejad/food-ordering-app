@@ -6,13 +6,13 @@ import { authOptions } from "../auth/[...nextauth]/options";
 
 export async function PUT(req) {
   await connectDB();
-  const { _id, name, image, ...otherUserInfo } = await req.json();
+  const { name, image, ...otherUserInfo } = await req.json();
 
   const session = await getServerSession(authOptions);
   const email = session.user.email;
-
-  const user = await User.findOne({ _id } || { email });
-  await User.updateOne({ _id } || { email }, { name: data.fullame, image });
+  console.log("-----------------------", name);
+  const user = await User.findOne({ email });
+  await User.updateOne({ email }, { name });
 
   return NextResponse.json({ message: "User updated successfully" });
 }

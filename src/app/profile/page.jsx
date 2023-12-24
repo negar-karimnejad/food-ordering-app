@@ -2,6 +2,7 @@
 
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
+import ProfileIcon from "@/components/ui/ProfileIcon";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -73,7 +74,7 @@ export default function Profile() {
       </ul>
       <div className="min-w-[350px] max-w-[600px]  mt-5 flex justify-between items-center gap-5 flex-col sm:flex-row sm:items-start">
         <div className="rounded-lg flex flex-col items-center gap-1 justify-center">
-          {user?.image && (
+          {user?.image ? (
             <Image
               src={user?.image}
               width={90}
@@ -81,6 +82,8 @@ export default function Profile() {
               className="rounded-lg"
               alt="user image"
             />
+          ) : (
+            <ProfileIcon />
           )}
           <Button className="rounded-md w-full py-0.5 bg-transparent border text-gray-500">
             Edit

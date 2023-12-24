@@ -3,6 +3,7 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import User from "../../../../../model/User";
 import connectDB from "@/app/utils/db";
+import bcrypt from "bcryptjs";
 
 export const authOptions = {
   providers: [
@@ -26,7 +27,7 @@ export const authOptions = {
         const user = await User.findOne({ email: credentials.email });
         if (
           credentials?.email === user.email &&
-          credentials?.password === user.password
+          bcrypt.compareSync(credentials?.password, user.password)
         ) {
           return user;
         } else {

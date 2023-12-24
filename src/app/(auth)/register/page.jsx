@@ -28,9 +28,6 @@ export default function Register() {
         toast.success("You registered successfully.");
         router.push("/login");
       }
-      if (res.status === 400) {
-        toast.error("User already exists.");
-      }
     } catch (error) {
       toast.error(error);
     }

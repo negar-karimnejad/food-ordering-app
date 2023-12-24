@@ -1,29 +1,19 @@
 import connectDB from "@/app/utils/db";
 import { NextResponse } from "next/server";
 import User from "../../../../model/User";
+import bcrypt from "bcrypt";
 
 export async function POST(req) {
+  await connectDB();
   const { email, password } = await req.json();
 
-  await connectDB();
-
-  const existingUser = await User.findOne({ email });
-
-  if (existingUser) {
-    return NextResponse.json(
-      { error: "User alredy exists." },
-      {
-        status: 400,
-      }
-    );
+  if (!password?.length || password.length < 5) {
+    new Error("password must be at least 5 characters");
   }
 
-  const newUser = new User({ email, password });
+  const hashPassword = bcrypt.hashSync(password, 10);
 
-  try {
-    await newUser.save();
-    return new NextResponse("User successfully registered", { status: 201 });
-  } catch (error) {
-    return new NextResponse(error, { status: 500 });
-  }
+  const newUser = await User.create({ email, password: hashPassword });
+
+  return new NextResponse(newUser, { status: 201 });
 }

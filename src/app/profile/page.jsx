@@ -13,7 +13,7 @@ export default function Profile() {
   const session = useSession();
   const user = session?.data?.user;
   const userEmail = session?.data?.user?.email;
-console.log(session);
+  console.log(session);
   const [fullname, setFullname] = useState(user?.name || "");
   const [phone, setPhone] = useState("");
   const [street, setStreet] = useState("");
@@ -29,26 +29,29 @@ console.log(session);
 
   const updateUser = async (e) => {
     e.preventDefault();
-
-    const res = await fetch("/api/profile", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name:fullname,
-        email: userEmail,
-        phone,
-        street,
-        postalcode,
-        city,
-        country,
-        image,
-        admin,
-      }),
-    });
-    if (res.ok) {
-      toast.success("User updated successfully.");
+    try {
+      const res = await fetch("/api/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: fullname,
+          email: userEmail,
+          phone,
+          street,
+          postalcode,
+          city,
+          country,
+          image,
+          admin,
+        }),
+      });
+      if (res.ok) {
+        toast.success("User updated successfully.");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

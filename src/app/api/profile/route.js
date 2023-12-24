@@ -5,17 +5,14 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/options";
 
 export async function PUT(req) {
-  const data = await req.json();
-
   await connectDB();
+  const { _id, name, image, ...otherUserInfo } = await req.json();
+
   const session = await getServerSession(authOptions);
   const email = session.user.email;
 
-  const user = await User.findOne({ email });
-
-  if ("name" in data) {
-    await User.updateOne({ email }, { name: data.name });
-  }
+  const user = await User.findOne({ _id } || { email });
+  await User.updateOne({ _id } || { email }, { name: data.fullame, image });
 
   return NextResponse.json({ message: "User updated successfully" });
 }

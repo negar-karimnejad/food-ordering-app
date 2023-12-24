@@ -1,29 +1,21 @@
 import connectDB from "@/app/utils/db";
 import { NextResponse } from "next/server";
 import User from "../../../../model/User";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/options";
 
 export async function PUT(req) {
-  const { email, fullname, phone, street, postalcode, city, country, admin } =
-    await req.json();
+  const data = await req.json();
 
   await connectDB();
+  const session = await getServerSession(authOptions);
+  const email = session.user.email;
 
-  const user = await User.findOne({email});
-  console.log(user);
-  if (user.email === email) {
-    const newUser = new User({
-      fullname,
-      phone,
-      email,
-      street,
-      postalcode,
-      city,
-      country,
-      admin,
-    });
+  const user = await User.findOne({ email });
 
-    newUser.save();
+  if ("name" in data) {
+    await User.updateOne({ email }, { name: data.name });
   }
 
-  return NextResponse.json(user);
+  return NextResponse.json({ message: "User updated successfully" });
 }

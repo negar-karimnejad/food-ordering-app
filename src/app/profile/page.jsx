@@ -5,6 +5,7 @@ import Input from "@/components/ui/Input";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -12,15 +13,19 @@ export default function Profile() {
   const session = useSession();
   const user = session?.data?.user;
   const userEmail = session?.data?.user?.email;
-
+console.log(session);
   const [fullname, setFullname] = useState(user?.name || "");
   const [phone, setPhone] = useState("");
   const [street, setStreet] = useState("");
   const [postalcode, setPostalcode] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(user?.image || "");
   const [admin, setAdmin] = useState("");
+
+  if (session.status === "unauthenticated") {
+    redirect("/login");
+  }
 
   const updateUser = async (e) => {
     e.preventDefault();
@@ -31,7 +36,7 @@ export default function Profile() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        fullname,
+        name:fullname,
         email: userEmail,
         phone,
         street,

@@ -8,12 +8,13 @@ export async function PUT(req) {
 
   await connectDB();
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({email});
   console.log(user);
   if (user.email === email) {
     const newUser = new User({
       fullname,
       phone,
+      email,
       street,
       postalcode,
       city,

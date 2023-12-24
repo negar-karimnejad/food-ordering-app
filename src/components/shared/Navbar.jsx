@@ -41,25 +41,24 @@ export default function Navbar() {
 
         {session.status === "authenticated" ? (
           <div className="flex items-center gap-5">
-            {user.image ? (
-              <Image
-                src={user.image}
-                width={40}
-                height={40}
-                className="rounded-full"
-                alt="user image"
-              />
-            ) : (
-              <Link
-                href="/profile"
-                className="font-bold text-gray-600 sm:block hidden"
-              >
-                Hello, Dear{" "}
-                <span className="capitalize text-primary">
-                  {username.split("@", 1)}
-                </span>
-              </Link>
-            )}
+            <Link href="/profile">
+              {user.image ? (
+                <Image
+                  src={user.image}
+                  width={40}
+                  height={40}
+                  className="rounded-full"
+                  alt="user image"
+                />
+              ) : (
+                <p className="font-bold text-gray-600 sm:block hidden">
+                  Hello, Dear{" "}
+                  <span className="capitalize text-primary">
+                    {username.split("@", 1)}
+                  </span>
+                </p>
+              )}
+            </Link>
             <Button className="px-8 py-2" onClick={() => signOut()}>
               Logout
             </Button>

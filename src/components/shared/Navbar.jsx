@@ -9,7 +9,8 @@ import ShoppingCart from "../ui/ShoppingCart";
 
 export default function Navbar() {
   const session = useSession();
-
+  const user = session?.data?.user;
+  const username = user?.name || user?.email;
   return (
     <>
       {session.status === "loading" && (
@@ -40,21 +41,24 @@ export default function Navbar() {
 
         {session.status === "authenticated" ? (
           <div className="flex items-center gap-5">
-            {session.data.user.image ? (
+            {user.image ? (
               <Image
-                src={session.data.user.image}
+                src={user.image}
                 width={40}
                 height={40}
                 className="rounded-full"
                 alt="user image"
               />
             ) : (
-              <p className="font-bold text-gray-600 sm:block hidden">
+              <Link
+                href="/profile"
+                className="font-bold text-gray-600 sm:block hidden"
+              >
                 Hello, Dear{" "}
                 <span className="capitalize text-primary">
-                  {session.data?.user.email.split("@", 1)}
+                  {username.split("@", 1)}
                 </span>
-              </p>
+              </Link>
             )}
             <Button className="px-8 py-2" onClick={() => signOut()}>
               Logout

@@ -24,12 +24,12 @@ export default function Profile() {
     }
   }, [session, status]);
 
-  if (status === 'loading' || !profileFetched) {
-    return 
+  if (status === "unauthenticated") {
+    return redirect("/login");
   }
 
-  if (status === "unauthenticated") {
-    redirect("/login");
+  if (status === "loading" || !profileFetched) {
+    return;
   }
 
   return (

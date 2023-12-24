@@ -6,12 +6,12 @@ import { User } from "../../../../model/User";
 
 export async function PUT(req) {
   await connectDB();
-  const { name, image, ...otherUserInfo } = await req.json();
+  const data = await req.json();
 
   const session = await getServerSession(authOptions);
   const email = session.user.email;
   const user = await User.findOne({ email });
-  await User.updateOne({ email }, { name });
+  await User.updateOne({ email }, data);
 
   return NextResponse.json({ message: "User updated successfully" });
 }

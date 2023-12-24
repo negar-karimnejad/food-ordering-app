@@ -8,12 +8,13 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 export default function UserForm({ user }) {
+  console.log(user);
   const [fullname, setFullname] = useState(user?.name || "");
-  const [phone, setPhone] = useState("");
-  const [street, setStreet] = useState("");
-  const [postalcode, setPostalcode] = useState("");
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
+  const [phone, setPhone] = useState(user?.phone || "");
+  const [street, setStreet] = useState(user?.street || "");
+  const [postalcode, setPostalcode] = useState(user?.postalcode || "");
+  const [city, setCity] = useState(user?.city || "");
+  const [country, setCountry] = useState(user?.country || "");
   const [image, setImage] = useState(user?.image || "");
   const [admin, setAdmin] = useState(user?.admin || false);
 

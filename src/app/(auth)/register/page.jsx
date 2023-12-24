@@ -59,7 +59,7 @@ export default function Register() {
         <p className="text-gray-600">or login with providers</p>
         <Button
           onClick={() => signIn("github")}
-          className="w-full bg-gray-950 rounded-lg text-gray-50 border"
+          className="w-full bg-transparent rounded-lg text-slate-800 border"
         >
           <Github />
           <span className="ml-2">Login with github</span>

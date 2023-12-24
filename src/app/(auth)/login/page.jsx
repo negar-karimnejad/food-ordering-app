@@ -54,7 +54,7 @@ export default function Login() {
         <p className="text-gray-600">or login with providers</p>
         <Button
           onClick={() => signIn("github", { callbackUrl: "/" })}
-          className="w-full rounded-lg text-gray-50 border bg-gray-950"
+          className="w-full bg-transparent rounded-lg text-slate-800 border"
         >
           <Github />
           <span className="ml-2">Login with github</span>

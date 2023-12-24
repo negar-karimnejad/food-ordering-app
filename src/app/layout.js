@@ -1,12 +1,12 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/shared/Navbar";
-import Footer from "@/components/shared/Footer";
+import Navbar from "../components/shared/Navbar";
+import Footer from "../components/shared/Footer";
 import AuthProvider from "./utils/AuthProvider";
 import { getServerSession } from "next-auth";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { EdgeStoreProvider } from "@/lib/edgestore";
+import { EdgeStoreProvider } from "../lib/edgestore";
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] });
 

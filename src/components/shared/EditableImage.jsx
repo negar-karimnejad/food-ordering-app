@@ -1,28 +1,25 @@
+"use client"
 import Image from "next/image";
 import ProfileIcon from "../ui/ProfileIcon";
-import { useEdgeStore } from "@/lib/edgestore";
+import { useEdgeStore } from "../../lib/edgestore";
+import { useState } from "react";
 
 export default function EditableImage({ image, setImage }) {
+  const [file, setFile] = useState();
   const { edgestore } = useEdgeStore();
 
   const updateProfileImage = async (e) => {
-    const files = e.target.files;
-    if (files) {
-      const res = await edgestore.publicFiles.upload({
-        files,
-        onProgressChange: (progress) => {
-          // you can use this to show a progress bar
-          console.log(progress);
-        },
-      });
+    const data = e.target.files[0];
+    if (data) {
+      setFile(data);
     }
-    const data = new FormData();
-    data.set("file", files[0]);
 
-    await fetch("/api/profile", {
-      method: "POST",
-      body: data,
-    });
+    if (file) {
+      const res = await edgestore.publicFiles.upload({
+        file,
+      });
+      setImage(res.url);
+    }
   };
 
   return (

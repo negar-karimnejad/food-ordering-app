@@ -1,10 +1,10 @@
 "use client";
 
-import UserForm from "@/components/shared/UserForm";
-import UserTabs from "@/components/shared/UserTabs";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
+import UserForm from "../../components/shared/UserForm";
+import UserTabs from "../../components/shared/UserTabs";
 
 export default function Profile() {
   const session = useSession();

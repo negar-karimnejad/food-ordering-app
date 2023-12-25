@@ -17,10 +17,9 @@ export default function UserForm({ user }) {
   const [country, setCountry] = useState(user?.country || "");
   const [image, setImage] = useState(user?.image || "");
   const [admin, setAdmin] = useState(user?.admin || false);
-
+  console.log(image);
   const updateUser = async (e) => {
     e.preventDefault();
-    console.log();
     try {
       const res = await fetch("/api/profile", {
         method: "PUT",

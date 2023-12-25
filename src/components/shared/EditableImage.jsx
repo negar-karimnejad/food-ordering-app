@@ -1,8 +1,9 @@
 "use client";
+
 import Image from "next/image";
-import ProfileIcon from "../ui/ProfileIcon";
-import { useEdgeStore } from "../../lib/edgestore";
 import { useState } from "react";
+import { useEdgeStore } from "../../lib/edgestore";
+import ProfileIcon from "../ui/ProfileIcon";
 
 export default function EditableImage({ image, setImage }) {
   const [file, setFile] = useState(null);
@@ -10,8 +11,8 @@ export default function EditableImage({ image, setImage }) {
 
   const updateProfileImage = async (e) => {
     setFile(e.target.files[0]);
-
-    if (file) {
+    
+    if (file?.length === 1) {
       const res = await edgestore.publicFiles.upload({
         file,
       });
@@ -21,19 +22,19 @@ export default function EditableImage({ image, setImage }) {
   };
 
   return (
-    <div className="w-full rounded-lg flex flex-col items-center gap-1 justify-center">
+    <div className="w-36 h-36 rounded-lg flex flex-col items-center gap-1 justify-center">
       {image ? (
         <Image
           src={image}
-          width={90}
-          height={100}
-          className="rounded-lg"
+          width={80}
+          height={80}
+          className="overflow-hidden rounded-lg"
           alt="user image"
         />
       ) : (
         <ProfileIcon />
       )}
-      <label className="rounded-md w-full text-center p-1 bg-transparent border text-gray-500">
+      <label className="rounded-md w-[100px] text-center p-1 bg-transparent border text-gray-500">
         Edit
         <input
           className="hidden"

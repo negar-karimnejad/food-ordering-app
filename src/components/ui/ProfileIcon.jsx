@@ -7,7 +7,7 @@ export default function ProfileIcon() {
       enableBackground="new 312.809 0 401 401"
       version="1.1"
       viewBox="312.809 0 401 401"
-      className="rounded-md"
+      className="rounded-lg"
     >
       <g transform="matrix(1.223 0 0 1.223 -467.5 -843.44)">
         <rect x="601.45" y="653.07" width="401" height="401" fill="#E4E6E7" />

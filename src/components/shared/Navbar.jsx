@@ -14,11 +14,11 @@ export default function Navbar() {
 
   return (
     <>
-      {session.status === "loading" && (
-        <div className="fixed w-screen h-screen flex justify-center items-center bg-black/50">
+      {/* {session.status === "loading" && (
+        <div className="fixed w-screen h-screen flex justify-center items-center bg-black/50 z-[999]">
           <Loader />
         </div>
-      )}
+      )} */}
       <div className="sm:px-24 px-10 py-5 flex justify-between items-center">
         <div className="flex items-center gap-8">
           <Link href="/">
@@ -44,13 +44,15 @@ export default function Navbar() {
           <div className="flex items-center gap-5">
             <Link href="/profile">
               {user.image ? (
-                <Image
-                  src={user.image}
-                  width={40}
-                  height={40}
-                  className="rounded-full"
-                  alt="user image"
-                />
+                <div className="w-[40px] h-[40px] rounded-full overflow-hidden">
+                  <Image
+                    src={user.image}
+                    width={40}
+                    height={40}
+                    className="w-fit h-fit object-contain"
+                    alt="user image"
+                  />
+                </div>
               ) : (
                 <p className="font-bold text-gray-600">
                   Hi{" "}
@@ -60,7 +62,10 @@ export default function Navbar() {
                 </p>
               )}
             </Link>
-            <Button className="px-8 py-2" onClick={() => signOut()}>
+            <Button
+              className="px-8 py-2 hidden sm:block"
+              onClick={() => signOut()}
+            >
               Logout
             </Button>
             <div className="relative">

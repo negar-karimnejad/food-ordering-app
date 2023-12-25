@@ -1,12 +1,12 @@
 "use client";
 
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import Button from "../../../components/ui/Button";
 import Github from "../../../components/ui/Github";
 import Google from "../../../components/ui/Google";
 import Input from "../../../components/ui/Input";
-import { signIn } from "next-auth/react";
-import { useState } from "react";
-import { toast } from "react-toastify";
 
 export default function Login() {
   const [email, setEmail] = useState("");

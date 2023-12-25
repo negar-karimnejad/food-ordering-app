@@ -1,9 +1,9 @@
 "use client";
 
-import Button from "@/components/ui/Button";
-import Github from "@/components/ui/Github";
-import Google from "@/components/ui/Google";
-import Input from "@/components/ui/Input";
+import Button from "../../../components/ui/Button";
+import Github from "../../../components/ui/Github";
+import Google from "../../../components/ui/Google";
+import Input from "../../../components/ui/Input";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

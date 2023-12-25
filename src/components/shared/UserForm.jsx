@@ -1,11 +1,9 @@
 "use client";
 
-import Image from "next/image";
-import Button from "../ui/Button";
-import Input from "../ui/Input";
-import ProfileIcon from "../ui/ProfileIcon";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import Button from "../ui/Button";
+import Input from "../ui/Input";
 import EditableImage from "./EditableImage";
 
 export default function UserForm({ user }) {
@@ -17,7 +15,7 @@ export default function UserForm({ user }) {
   const [country, setCountry] = useState(user?.country || "");
   const [image, setImage] = useState(user?.image || "");
   const [admin, setAdmin] = useState(user?.admin || false);
-  console.log(image);
+
   const updateUser = async (e) => {
     e.preventDefault();
     try {
@@ -47,7 +45,7 @@ export default function UserForm({ user }) {
   };
 
   return (
-    <div className="min-w-[350px] max-w-[600px]  mt-5 flex justify-between items-center gap-5 flex-col sm:flex-row sm:items-start">
+    <div className="min-w-[350px] max-w-[600px]  mt-5 flex justify-between items-center sm:gap-5 flex-col sm:flex-row sm:items-start">
       <EditableImage image={image} setImage={setImage} />
       <form
         onSubmit={updateUser}

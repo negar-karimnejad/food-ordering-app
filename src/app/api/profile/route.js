@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/options";
 import { User } from "../../../../model/User";
+import { revalidatePath } from "next/cache";
 
 export async function PUT(req) {
   await connectDB();
@@ -12,7 +13,7 @@ export async function PUT(req) {
   const email = session.user.email;
   const user = await User.findOne({ email });
   await User.updateOne({ email }, data);
-
+  revalidatePath("/profile");
   return NextResponse.json({ message: "User updated successfully" });
 }
 

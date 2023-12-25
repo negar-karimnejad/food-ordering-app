@@ -5,11 +5,12 @@ import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import UserForm from "../../components/shared/UserForm";
 import UserTabs from "../../components/shared/UserTabs";
+import PageLoader from "../../components/ui/PageLoader";
 
 export default function Profile() {
   const session = useSession();
   const { status } = session;
-
+  console.log("profile session", session);
   const [user, setUser] = useState([]);
   const [profileFetched, setProfileFetched] = useState(false);
 
@@ -28,14 +29,16 @@ export default function Profile() {
     return redirect("/login");
   }
 
-  if (status === "loading" || !profileFetched) {
-    return;
-  }
-
   return (
-    <div className="flex flex-col items-center justify-center mt-10">
-      <UserTabs />
-      <UserForm user={user} />
-    </div>
+    <>
+      {status === "loading" || !profileFetched ? (
+        <PageLoader />
+      ) : (
+        <div className="flex flex-col items-center justify-center mt-10">
+          <UserTabs user={user} />
+          <UserForm user={user} />
+        </div>
+      )}
+    </>
   );
 }

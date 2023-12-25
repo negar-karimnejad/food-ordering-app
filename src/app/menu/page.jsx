@@ -1,5 +1,5 @@
-import Menu from "@/components/shared/Menu";
-import SectionHeader from "@/components/ui/SectionHeader";
+import Menu from "../../components/shared/Menu";
+import SectionHeader from "../../components/ui/SectionHeader";
 
 export default function page() {
   return (

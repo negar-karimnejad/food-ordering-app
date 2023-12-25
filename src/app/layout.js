@@ -1,13 +1,12 @@
-import { Roboto } from "next/font/google";
-import "./globals.css";
-import Navbar from "../components/shared/Navbar";
-import Footer from "../components/shared/Footer";
-import AuthProvider from "./utils/AuthProvider";
 import { getServerSession } from "next-auth";
+import { Roboto } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "../components/shared/Footer";
+import Navbar from "../components/shared/Navbar";
 import { EdgeStoreProvider } from "../lib/edgestore";
-
+import "./globals.css";
+import AuthProvider from "./utils/AuthProvider";
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] });
 
 export const metadata = {
@@ -17,6 +16,7 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   const session = await getServerSession();
+
   return (
     <html lang="en">
       <body className={roboto.className}>

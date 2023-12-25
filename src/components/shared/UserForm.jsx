@@ -49,7 +49,7 @@ export default function UserForm({ user }) {
 
   return (
     <div className="min-w-[350px] max-w-[600px]  mt-5 flex justify-between items-center gap-5 flex-col sm:flex-row sm:items-start">
-      <EditableImage image={user?.image} setImage={setImage} />
+      <EditableImage image={image} setImage={setImage} />
       <form
         onSubmit={updateUser}
         className="flex flex-col gap-3 flex-grow w-full"
@@ -64,6 +64,7 @@ export default function UserForm({ user }) {
           type="email"
           placeholder="Email"
           value={user?.email}
+          onChange={() => {}}
           className="bg-gray-300 text-gray-500 cursor-not-allowed"
           disabled={true}
         />

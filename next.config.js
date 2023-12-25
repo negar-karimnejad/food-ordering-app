@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: "*.googleusercontent.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "files.edgestore.dev",
+        port: "",
+      },
     ],
   },
 };

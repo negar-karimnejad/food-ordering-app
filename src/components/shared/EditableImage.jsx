@@ -1,24 +1,22 @@
-"use client"
+"use client";
 import Image from "next/image";
 import ProfileIcon from "../ui/ProfileIcon";
 import { useEdgeStore } from "../../lib/edgestore";
 import { useState } from "react";
 
 export default function EditableImage({ image, setImage }) {
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(null);
   const { edgestore } = useEdgeStore();
 
   const updateProfileImage = async (e) => {
-    const data = e.target.files[0];
-    if (data) {
-      setFile(data);
-    }
+    setFile(e.target.files[0]);
 
     if (file) {
       const res = await edgestore.publicFiles.upload({
         file,
       });
-      setImage(res.url);
+      setImage(res?.url);
+      console.log("image", image);
     }
   };
 

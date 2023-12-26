@@ -46,25 +46,25 @@ export default function ExistingCategories({ categories, getCategories }) {
         categories?.map((category) => (
           <div
             key={category._id}
-            className="bg-gray-100 mb-2 flex w-full justify-between rounded-lg p-2"
+            className="bg-gray-200 mb-2 flex w-full justify-between rounded-lg p-2"
           >
             <Input
               type="text"
               defaultValue={category.title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full border-0 font-bold bg-gray-100"
+              className="w-full border-0 font-bold bg-gray-200"
             />
             <div className="flex gap-x-2 items-center">
               <Button
                 onClick={() => editCategory(category._id)}
-                className="rounded-lg h-9 px-3 text-gray-800 text-base bg-transparent border"
+                className="rounded-lg h-9 px-3 text-gray-800 text-base bg-transparent border border-gray-400"
                 type="button"
               >
                 Edit
               </Button>
               <Button
                 onClick={() => deleteCategory(category._id)}
-                className="rounded-lg h-9 px-3 text-gray-800 text-base bg-transparent border"
+                className="rounded-lg h-9 px-3 text-gray-800 text-base bg-transparent border border-gray-400"
                 type="button"
               >
                 Delete

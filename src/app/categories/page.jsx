@@ -52,7 +52,7 @@ export default function Categories() {
       {loading ? "loading..." : <UserTabs user={data} />}
       <div className="min-w-[350px] max-w-[450px] sm:max-w-[550px] mt-16 m-auto flex flex-col justify-center items-center">
         <form onSubmit={createCategory} className="w-full">
-          <label htmlFor="title" className="text-sm text-gray-400">
+          <label htmlFor="title" className="text-sm text-gray-500">
             New category name
           </label>
           <div className="flex justify-between gap-1 w-full">
@@ -61,7 +61,7 @@ export default function Categories() {
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full bg-gray-100 h-9"
+              className="w-full bg-gray-200 h-9"
             />
             <Button className="rounded-lg h-9 px-3 text-base" type="submit">
               Create
@@ -72,7 +72,7 @@ export default function Categories() {
           </div>
         </form>
         <form onSubmit={createCategory} className="mt-10 w-full">
-          <label htmlFor="" className="flex text-sm text-gray-400">
+          <label htmlFor="" className="flex text-sm text-gray-500">
             Existing categories
           </label>
           <ExistingCategories

@@ -3,14 +3,13 @@ import mongoose, { Schema } from "mongoose";
 const MenuItemsSchema = new Schema(
   {
     image: { type: String },
-    name: { type: String },
+    title: { type: String, required: true },
     description: { type: String },
-    category: { type: String },
+    category: { type: String, required: true },
     price: { type: Number },
   },
   { timestamps: true }
 );
 
-const MenuItems =
-  mongoose.models.MenuItems || mongoose.MenuItems("MenuItems", MenuItemsSchema);
-export default MenuItems;
+export const MenuItems =
+  mongoose?.models?.MenuItems || mongoose.model("MenuItems", MenuItemsSchema);

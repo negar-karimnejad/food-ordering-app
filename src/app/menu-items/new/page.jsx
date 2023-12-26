@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 
 export default function NewMenuItems() {
   const [image, setImage] = useState("");
-  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
@@ -22,9 +22,9 @@ export default function NewMenuItems() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ image, name, description, category, price }),
+      body: JSON.stringify({ image, title, description, category, price }),
     });
-
+    console.log(res);
     if (res.ok) {
       toast.success("Menu item saved successfully");
     }
@@ -50,9 +50,8 @@ export default function NewMenuItems() {
               <Input
                 type="text"
                 placeholder="Item Name"
-                className="w-full"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
               <Input
                 type="text"

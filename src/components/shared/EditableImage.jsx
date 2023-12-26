@@ -30,7 +30,7 @@ export default function EditableImage({ image, setImage }) {
           <div className="relative">
             <Image
               src={image}
-              width={100}
+              width={110}
               height={100}
               className="rounded-lg w-full h-full mb-1"
               alt="user image"

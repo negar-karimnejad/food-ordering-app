@@ -39,25 +39,32 @@ export default function Menuitems() {
         >
           Create new menu item <RightArrow />
         </Link>
-        <div className="mt-10">
-          <p className="text-gray-600">Edit menu items:</p>
-          <div className="flex gap-2 flex-wrap items-center justify-center">
-            {menuItems?.map((menu) => (
-              <>
-                <div className="bg-gray-300 rounded-lg p-2 w-52 h-40 flex flex-grow flex-col justify-center items-center">
+        {menuItems?.length > 0 ? (
+          <div className="mt-10">
+            <p className="text-gray-600">Edit menu items:</p>
+            <div className="flex gap-2 flex-wrap items-center justify-center">
+              {menuItems.map((menu) => (
+                <div
+                  key={menu._id}
+                  className="bg-gray-300 rounded-lg p-2 w-52 h-40 flex flex-grow flex-col justify-center items-center"
+                >
                   <Image
-                    src="/pizza.png"
+                    src={menu.image}
                     width={100}
                     height={100}
-                    alt="pizza image"
+                    alt={menu.title}
                     className="rounded-lg"
                   />
-                  <h3 className="font-bold">Pizza3</h3>
+                  <h3 className="font-bold">{menu.title}</h3>
                 </div>
-              </>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        ) : (
+          <p className="text-center font-extrabold text-gray-700 mt-10 text-lg  m-auto border border-white border-b-red-500">
+            The is no menu items here.
+          </p>
+        )}
       </div>
     </>
   );

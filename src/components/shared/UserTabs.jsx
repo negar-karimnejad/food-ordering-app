@@ -22,7 +22,7 @@ export default function UserTabs({ user }) {
               key={tab.id}
               className={`${
                 pathname === tab.link ? "bg-primary text-white" : ""
-              } bg-gray-200 text-gray-700 font-semibold px-4 py-1.5 rounded-full sm:text-base text-sm`}
+              } bg-gray-200 text-gray-700 font-semibold px-4 py-2 rounded-full sm:text-base text-sm`}
             >
               <Link href={tab.link}>{tab.title}</Link>
             </li>

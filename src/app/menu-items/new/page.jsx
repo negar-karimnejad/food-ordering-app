@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import EditableImage from "../../../components/shared/EditableImage";
 import UserTabs from "../../../components/shared/UserTabs";
 import Button from "../../../components/ui/Button";
 import Input from "../../../components/ui/Input";
 import LeftArrow from "../../../components/ui/LeftArrow";
-import { useState } from "react";
-import { toast } from "react-toastify";
 
 export default function NewMenuItems() {
   const [image, setImage] = useState("");
@@ -25,8 +26,10 @@ export default function NewMenuItems() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
+    
     if (res.ok) {
       toast.success("Menu item saved successfully");
+      redirect("/menu-items");
     } else {
       toast.error("Something went wrong.");
     }
@@ -34,7 +37,7 @@ export default function NewMenuItems() {
 
   return (
     <>
-      {/* <UserTabs /> */}
+      <UserTabs user={true} />
       <div className="w-[350px] md:w-[700px] mt-16 m-auto flex flex-col justify-center items-center">
         <Link
           href="/menu-items"

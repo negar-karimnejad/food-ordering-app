@@ -1,20 +1,32 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "react-toastify";
+import ExistingCategories from "../../components/shared/ExistingCategories";
 import UserTabs from "../../components/shared/UserTabs";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 import { useProfile } from "../../hook/useProfile";
-import { toast } from "react-toastify";
-import ExistingCategories from "../../components/shared/ExistingCategories";
 
 export default function Categories() {
   const { loading, data } = useProfile();
   const [title, setTitle] = useState("");
+  const [categories, setCategories] = useState([]);
+
+  async function getCategories() {
+    await fetch("/api/category")
+      .then((res) => res.json())
+      .then((data) => setCategories(data));
+  }
 
   if (!data.admin) {
-    return "Non an admin";
+    return (
+      <p className="text-center font-extrabold mt-10 text-xl bg-gray-100  p-3 text-primary shadow-xl w-[350px] m-auto rounded-md">
+        Non an admin
+      </p>
+    );
   }
+
   const createCategory = async (e) => {
     e.preventDefault();
     if (title.trim()) {
@@ -28,13 +40,16 @@ export default function Categories() {
       if (res.ok) {
         toast.success("Category created successfully");
         setTitle("");
+        getCategories();
+      } else {
+        toast.error("Something went wrong.");
       }
     }
   };
 
   return (
     <>
-      <UserTabs user={data} />
+      {loading ? "loading..." : <UserTabs user={data} />}
       <div className="min-w-[350px] max-w-[450px] sm:max-w-[550px] mt-16 m-auto flex flex-col justify-center items-center">
         <form onSubmit={createCategory} className="w-full">
           <label htmlFor="title" className="text-sm text-gray-400">
@@ -60,7 +75,10 @@ export default function Categories() {
           <label htmlFor="" className="flex text-sm text-gray-400">
             Existing categories
           </label>
-          <ExistingCategories />
+          <ExistingCategories
+            categories={categories}
+            getCategories={getCategories}
+          />
         </form>
       </div>
     </>

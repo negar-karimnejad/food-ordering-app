@@ -1,19 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
-import { toast } from "react-toastify";
+import CategoryLoader from "../ui/CategoryLoader";
 
-export default function ExistingCategories() {
-  const [categories, setCategories] = useState([]);
+export default function ExistingCategories({ categories, getCategories }) {
   const [title, setTitle] = useState("");
-
-  async function getCategories() {
-    await fetch("/api/category")
-      .then((res) => res.json())
-      .then((data) => setCategories(data));
-  }
 
   useEffect(() => {
     getCategories();
@@ -48,35 +42,39 @@ export default function ExistingCategories() {
 
   return (
     <>
-      {categories?.map((category) => (
-        <div
-          key={category._id}
-          className="bg-gray-100 mb-2 flex w-full justify-between rounded-lg p-2"
-        >
-          <Input
-            type="text"
-            defaultValue={category.title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full border-0 font-bold bg-gray-100"
-          />
-          <div className="flex gap-x-2 items-center">
-            <Button
-              onClick={() => editCategory(category._id)}
-              className="rounded-lg h-9 px-3 text-gray-800 text-base bg-transparent border"
-              type="button"
-            >
-              Edit
-            </Button>
-            <Button
-              onClick={() => deleteCategory(category._id)}
-              className="rounded-lg h-9 px-3 text-gray-800 text-base bg-transparent border"
-              type="button"
-            >
-              Delete
-            </Button>
+      {categories.length !== 0 ? (
+        categories?.map((category) => (
+          <div
+            key={category._id}
+            className="bg-gray-100 mb-2 flex w-full justify-between rounded-lg p-2"
+          >
+            <Input
+              type="text"
+              defaultValue={category.title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full border-0 font-bold bg-gray-100"
+            />
+            <div className="flex gap-x-2 items-center">
+              <Button
+                onClick={() => editCategory(category._id)}
+                className="rounded-lg h-9 px-3 text-gray-800 text-base bg-transparent border"
+                type="button"
+              >
+                Edit
+              </Button>
+              <Button
+                onClick={() => deleteCategory(category._id)}
+                className="rounded-lg h-9 px-3 text-gray-800 text-base bg-transparent border"
+                type="button"
+              >
+                Delete
+              </Button>
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <CategoryLoader />
+      )}
     </>
   );
 }

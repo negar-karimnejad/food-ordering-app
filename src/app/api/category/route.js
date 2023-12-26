@@ -1,11 +1,11 @@
-import { NextResponse } from "next/server";
-import connectDB from "../../utils/db";
-import { Category } from "../../../../model/Category";
 import { revalidatePath } from "next/cache";
+import { NextResponse } from "next/server";
+import { Category } from "../../../../model/Category";
+import connectDB from "../../utils/db";
 
-export async function GET(req) {
+export async function GET() {
   await connectDB();
-  const data = await Category.find();
+  const data = await Category.find({});
   return NextResponse.json(data);
 }
 
@@ -18,6 +18,7 @@ export async function POST(req) {
   }
 
   const newCategory = await Category.create({ title });
-  revalidatePath("/categories")
+  revalidatePath("/categories");
+
   return NextResponse.json(newCategory, { status: 201 });
 }

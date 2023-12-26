@@ -4,7 +4,6 @@ export default function Input({
   placeholder,
   value,
   onChange,
-  defaultValue,
   id,
 }) {
   return (
@@ -17,7 +16,6 @@ export default function Input({
       value={value}
       onChange={onChange}
       id={`${id ? id : ""}`}
-      defaultValue={`${defaultValue ? defaultValue : ""}`}
     />
   );
 }

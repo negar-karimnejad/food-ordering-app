@@ -48,11 +48,11 @@ export default function ExistingCategories({ categories, getCategories }) {
             key={category._id}
             className="bg-gray-200 mb-2 flex w-full justify-between rounded-lg p-2"
           >
-            <Input
+            <input
               type="text"
               defaultValue={category.title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full border-0 font-bold bg-gray-200"
+              className="outline-none flex gap-2 p-2 rounded-md w-full border-0 font-bold bg-gray-200"
             />
             <div className="flex gap-x-2 items-center">
               <Button

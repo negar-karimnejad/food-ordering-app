@@ -4,8 +4,8 @@ import connectDB from "../../../app/utils/db";
 
 export async function POST(req) {
   await connectDB();
-  const { image, title, description, category, price } = await req.json();
-
+  const data = await req.json();
+  const { image, title, description, category, price } = data;
   const newMenuItem = await MenuItems.create({
     image,
     title,
@@ -13,5 +13,6 @@ export async function POST(req) {
     category,
     price,
   });
-  return NextResponse.json({newMenuItem});
+  console.log("newMenuItemmmmmmmmmmmmmmm", newMenuItem);
+  return NextResponse.json({ newMenuItem });
 }

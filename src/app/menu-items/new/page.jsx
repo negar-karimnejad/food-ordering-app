@@ -17,16 +17,18 @@ export default function NewMenuItems() {
   const [price, setPrice] = useState("");
 
   const saveMenuItem = async (e) => {
+    e.preventDefault();
+
+    const data = { image, title, description, category, price };
     const res = await fetch("/api/menu-items", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ image, title, description, category, price }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
     });
-    console.log(res);
     if (res.ok) {
       toast.success("Menu item saved successfully");
+    } else {
+      toast.error("Something went wrong.");
     }
   };
 
@@ -66,7 +68,7 @@ export default function NewMenuItems() {
                 onChange={(e) => setCategory(e.target.value)}
               />
               <Input
-                type="text"
+                type="number"
                 placeholder="Base Price"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}

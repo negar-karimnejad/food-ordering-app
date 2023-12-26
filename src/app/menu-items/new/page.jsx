@@ -37,7 +37,7 @@ export default function NewMenuItems() {
       {/* <UserTabs /> */}
       <div className="w-[350px] md:w-[700px] mt-16 m-auto flex flex-col justify-center items-center">
         <Link
-          href="menu-items/new"
+          href="/menu-items"
           className="flex gap-3 font-bold border rounded-lg p-2 w-full items-center justify-center"
         >
           <LeftArrow /> Show all menu item

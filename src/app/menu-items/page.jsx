@@ -5,9 +5,21 @@ import UserTabs from "../../components/shared/UserTabs";
 import RightArrow from "../../components/ui/RightArrow";
 import { useProfile } from "../../hook/useProfile";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Menuitems() {
   const { loading, data } = useProfile();
+  const [menuItems, setMenuItems] = useState([]);
+
+  const getMenuItems = async () => {
+    await fetch("/api/menu-items")
+      .then((res) => res.json())
+      .then((datat) => setMenuItems(data));
+  };
+
+  useEffect(() => {
+    getMenuItems();
+  }, []);
 
   if (!data.admin) {
     return (
@@ -30,36 +42,20 @@ export default function Menuitems() {
         <div className="mt-10">
           <p className="text-gray-600">Edit menu items:</p>
           <div className="flex gap-2 flex-wrap items-center justify-center">
-            <div className="bg-gray-300 rounded-lg p-2 w-52 h-40 flex flex-grow flex-col justify-center items-center">
-              <Image
-                src="/pizza.png"
-                width={100}
-                height={100}
-                alt="pizza image"
-                className="rounded-lg"
-              />
-              <h3 className="font-bold">Pizza3</h3>
-            </div>
-            <div className="bg-gray-300 rounded-lg p-2 w-52 h-40 flex flex-grow flex-col justify-center items-center">
-              <Image
-                src="/pizza.png"
-                width={100}
-                height={100}
-                alt="pizza image"
-                className="rounded-lg"
-              />
-              <h3 className="font-bold">Pizza3</h3>
-            </div>
-            <div className="bg-gray-300 rounded-lg p-2 w-52 h-40 flex flex-grow flex-col justify-center items-center">
-              <Image
-                src="/pizza.png"
-                width={100}
-                height={100}
-                alt="pizza image"
-                className="rounded-lg"
-              />
-              <h3 className="font-bold">Pizza3</h3>
-            </div>
+            {menuItems?.map((menu) => (
+              <>
+                <div className="bg-gray-300 rounded-lg p-2 w-52 h-40 flex flex-grow flex-col justify-center items-center">
+                  <Image
+                    src="/pizza.png"
+                    width={100}
+                    height={100}
+                    alt="pizza image"
+                    className="rounded-lg"
+                  />
+                  <h3 className="font-bold">Pizza3</h3>
+                </div>
+              </>
+            ))}
           </div>
         </div>
       </div>

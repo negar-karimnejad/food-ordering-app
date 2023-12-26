@@ -1,10 +1,10 @@
-
 export default function Input({
   type,
   className,
   placeholder,
   value,
   onChange,
+  id,
 }) {
   return (
     <input
@@ -15,6 +15,7 @@ export default function Input({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      id={`${id ? id : ""}`}
     />
   );
 }

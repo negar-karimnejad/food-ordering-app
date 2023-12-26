@@ -11,11 +11,11 @@ export default function Menuitems() {
   const { loading, data } = useProfile();
   const [menuItems, setMenuItems] = useState([]);
 
-  const getMenuItems = async () => {
+  async function getMenuItems() {
     await fetch("/api/menu-items")
       .then((res) => res.json())
-      .then((datat) => setMenuItems(data));
-  };
+      .then((data) => setMenuItems(data));
+  }
 
   useEffect(() => {
     getMenuItems();

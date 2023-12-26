@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 
 export async function GET() {
   await connectDB();
-  const data = await MenuItems.found({});
+  const data = await MenuItems.find({});
   return NextResponse.json(data);
 }
 

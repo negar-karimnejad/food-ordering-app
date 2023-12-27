@@ -7,6 +7,7 @@ import Input from "../ui/Input";
 import EditableImage from "./EditableImage";
 
 export default function UserForm({ user }) {
+  
   const [fullname, setFullname] = useState(user?.name || "");
   const [phone, setPhone] = useState(user?.phone || "");
   const [street, setStreet] = useState(user?.street || "");

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import EditableImage from "../../../components/shared/EditableImage";
@@ -9,6 +9,7 @@ import UserTabs from "../../../components/shared/UserTabs";
 import Button from "../../../components/ui/Button";
 import Input from "../../../components/ui/Input";
 import LeftArrow from "../../../components/ui/LeftArrow";
+import { useProfile } from "../../../hook/useProfile";
 
 export default function NewMenuItems() {
   const [image, setImage] = useState("");
@@ -17,19 +18,23 @@ export default function NewMenuItems() {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
 
+  const { loading, data } = useProfile();
+  const router = useRouter();
+
   const saveMenuItem = async (e) => {
     e.preventDefault();
 
     const data = { image, title, description, category, price };
+
     const res = await fetch("/api/menu-items", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    
+
     if (res.ok) {
       toast.success("Menu item saved successfully");
-      redirect("/menu-items");
+      router.push("/menu-items");
     } else {
       toast.error("Something went wrong.");
     }
@@ -37,7 +42,7 @@ export default function NewMenuItems() {
 
   return (
     <>
-      <UserTabs user={true} />
+      <UserTabs user={data} />
       <div className="w-[350px] md:w-[700px] mt-16 m-auto flex flex-col justify-center items-center">
         <Link
           href="/menu-items"
@@ -71,7 +76,7 @@ export default function NewMenuItems() {
                 onChange={(e) => setCategory(e.target.value)}
               />
               <Input
-                type="number"
+                type="text"
                 placeholder="Base Price"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}

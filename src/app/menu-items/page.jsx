@@ -44,19 +44,22 @@ export default function Menuitems() {
             <p className="text-gray-600">Edit menu items:</p>
             <div className="flex gap-2 flex-wrap items-center justify-center">
               {menuItems.map((menu) => (
-                <div
+                <Link
+                  href={`menu-items/edit/${menu._id}`}
                   key={menu._id}
-                  className="bg-gray-300 rounded-lg p-2 w-52 h-40 flex flex-grow flex-col justify-center items-center"
+                  className="bg-gray-300 rounded-lg p-7 gap-2 w-52 h-40 flex flex-grow flex-col justify-center items-center"
                 >
-                  <Image
-                    src={menu.image}
-                    width={100}
-                    height={100}
-                    alt={menu.title}
-                    className="rounded-lg"
-                  />
+                  <div className="w-full h-full rounded-lg ">
+                    <Image
+                      src={menu.image}
+                      width={100}
+                      height={100}
+                      alt={menu.title}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
                   <h3 className="font-bold">{menu.title}</h3>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

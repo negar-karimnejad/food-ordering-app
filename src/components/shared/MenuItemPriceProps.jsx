@@ -38,7 +38,6 @@ export default function MenuItemPriceProps({
         <button type="button" onClick={() => setIsOpen((prev) => !prev)}>
           {isOpen ? <ChevronUp /> : <ChevronDown />}
         </button>
-
         <p className="text-gray-600 font-medium">
           {name} ({props?.length})
         </p>

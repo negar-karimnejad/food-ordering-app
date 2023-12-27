@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
-import PageLoader from "../ui/PageLoader";
 import EditableImage from "./EditableImage";
 
 export default function MenuItemForm({ menuItem, editMenuItem }) {
@@ -23,48 +22,77 @@ export default function MenuItemForm({ menuItem, editMenuItem }) {
 
   return (
     <>
-      {menuItem ? (
-        <div className="mt-10">
-          <div className="min-w-[350px] md:w-[700px]  mt-5 flex justify-between items-center sm:gap-5 flex-col sm:flex-row sm:items-start">
-            <EditableImage image={image} setImage={setImage} />
-            <form
-              onSubmit={editMenuItem}
-              className="flex flex-col gap-3 flex-grow w-full"
-            >
+      <div className="mt-10">
+        <div className="min-w-[350px] md:w-[700px]  mt-5 flex justify-between items-center sm:gap-5 flex-col sm:flex-row sm:items-start">
+          <EditableImage image={image} setImage={setImage} />
+          <form
+            onSubmit={editMenuItem}
+            className="flex flex-col gap-3 flex-grow w-full"
+          >
+            <div>
+              <label htmlFor="title" className="m-0 p-0 text-gray-400 text-sm">
+                Item name
+              </label>
               <Input
                 type="text"
+                id="title"
                 placeholder="Item Name"
+                className="w-full"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
+            </div>
+            <div>
+              <label
+                htmlFor="description"
+                className="m-0 p-0 text-gray-400 text-sm"
+              >
+                Description
+              </label>
               <Input
+                className="w-full"
+                id="description"
                 type="text"
                 placeholder="Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
+            </div>
+            <div>
+              <label
+                htmlFor="category"
+                className="m-0 p-0 text-gray-400 text-sm"
+              >
+                Category
+              </label>
               <Input
+                className="w-full"
+                id="category"
                 type="text"
                 placeholder="Category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               />
+            </div>
+            <div>
+              <label htmlFor="price" className="m-0 p-0 text-gray-400 text-sm">
+                Price
+              </label>
               <Input
+                id="price"
+                className="w-full"
                 type="text"
                 placeholder="Base Price"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
-
-              <Button type="submit" className="rounded-lg">
-                Edit
-              </Button>
-            </form>
-          </div>
+            </div>
+            <Button type="submit" className="rounded-lg">
+              Edit
+            </Button>
+          </form>
         </div>
-      ) : (
-        <PageLoader />
-      )}
+      </div>
     </>
   );
 }

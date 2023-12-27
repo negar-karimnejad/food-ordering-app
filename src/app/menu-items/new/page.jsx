@@ -57,30 +57,66 @@ export default function NewMenuItems() {
               onSubmit={saveMenuItem}
               className="flex flex-col gap-3 flex-grow w-full"
             >
-              <Input
-                type="text"
-                placeholder="Item Name"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <Input
-                type="text"
-                placeholder="Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-              <Input
-                type="text"
-                placeholder="Category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              />
-              <Input
-                type="text"
-                placeholder="Base Price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
+              <div>
+                <label
+                  htmlFor="title"
+                  className="m-0 p-0 text-gray-400 text-sm"
+                >
+                  Item name
+                </label>
+                <Input
+                  type="text"
+                  id="title"
+                  className="w-full"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="description"
+                  className="m-0 p-0 text-gray-400 text-sm"
+                >
+                  Description
+                </label>
+                <Input
+                  type="text"
+                  id="description"
+                  className="w-full"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="category"
+                  className="m-0 p-0 text-gray-400 text-sm"
+                >
+                  Category
+                </label>
+                <Input
+                  type="text"
+                  id="category"
+                  className="w-full"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="price"
+                  className="m-0 p-0 text-gray-400 text-sm"
+                >
+                  Price
+                </label>
+                <Input
+                  type="text"
+                  id="price"
+                  className="w-full"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                />
+              </div>
 
               <Button type="submit" className="rounded-lg">
                 Save

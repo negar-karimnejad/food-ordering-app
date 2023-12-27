@@ -7,7 +7,6 @@ import Input from "../ui/Input";
 import EditableImage from "./EditableImage";
 
 export default function UserForm({ user }) {
-  
   const [fullname, setFullname] = useState(user?.name || "");
   const [phone, setPhone] = useState(user?.phone || "");
   const [street, setStreet] = useState(user?.street || "");
@@ -52,47 +51,90 @@ export default function UserForm({ user }) {
         onSubmit={updateUser}
         className="flex flex-col gap-3 flex-grow w-full"
       >
-        <Input
-          type="text"
-          placeholder="Fullname"
-          value={fullname}
-          onChange={(e) => setFullname(e.target.value)}
-        />
-        <Input
-          type="email"
-          placeholder="Email"
-          value={user?.email}
-          onChange={() => {}}
-          className="bg-gray-300 text-gray-500 cursor-not-allowed"
-          disabled={true}
-        />
-        <Input
-          type="tel"
-          placeholder="Phone number"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-        />
-        <Input
-          type="text"
-          placeholder="Street Address"
-          value={street}
-          onChange={(e) => setStreet(e.target.value)}
-        />
-        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:gap-5">
+        <div>
+          <label htmlFor="fullname" className="m-0 p-0 text-gray-400 text-sm">
+            Fullname
+          </label>
           <Input
             type="text"
-            placeholder="Postal code"
-            value={postalcode}
-            onChange={(e) => setPostalcode(e.target.value)}
-          />
-          <Input
-            type="text"
-            placeholder="City"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
+            id="fullname"
+            placeholder="Fullname"
+            className="w-full"
+            value={fullname}
+            onChange={(e) => setFullname(e.target.value)}
           />
         </div>
+        <div>
+          <label htmlFor="email" className="m-0 p-0 text-gray-400 text-sm">
+            Email
+          </label>
+          <Input
+            type="email"
+            id="email"
+            placeholder="Email"
+            value={user?.email}
+            onChange={() => {}}
+            className="w-full bg-gray-300 text-gray-500 cursor-not-allowed"
+            disabled={true}
+          />
+        </div>
+        <div>
+          <label htmlFor="phone" className="m-0 p-0 text-gray-400 text-sm">
+            Phone number
+          </label>
+          <Input
+            className="w-full"
+            type="tel"
+            id="phone"
+            placeholder="Phone number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="address" className="m-0 p-0 text-gray-400 text-sm">
+            Street Address
+          </label>
+          <Input
+            className="w-full"
+            id="address"
+            type="text"
+            placeholder="Street Address"
+            value={street}
+            onChange={(e) => setStreet(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:gap-5">
+          <div>
+            <label htmlFor="title" className="m-0 p-0 text-gray-400 text-sm">
+              Item name
+            </label>
+            <Input
+              className="w-full"
+              type="text"
+              placeholder="Postal code"
+              value={postalcode}
+              onChange={(e) => setPostalcode(e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="title" className="m-0 p-0 text-gray-400 text-sm">
+              Item name
+            </label>
+            <Input
+              className="w-full"
+              type="text"
+              placeholder="City"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
+          </div>
+        </div>
+        <label htmlFor="title" className="m-0 p-0 text-gray-400 text-sm">
+          Item name
+        </label>
         <Input
+          className="w-full"
           type="text"
           placeholder="Country"
           value={country}

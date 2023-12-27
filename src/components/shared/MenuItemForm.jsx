@@ -16,6 +16,8 @@ export default function MenuItemForm({ menuItem }) {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
+  const [sizes, setSizes] = useState([]);
+  const [extraIngredientPrices, setExtraIngredientPrices] = useState([]);
 
   useEffect(() => {
     setImage(menuItem?.image);
@@ -23,6 +25,8 @@ export default function MenuItemForm({ menuItem }) {
     setDescription(menuItem?.description);
     setCategory(menuItem?.category);
     setPrice(menuItem?.price);
+    setSizes(menuItem?.sizes);
+    setExtraIngredientPrices(menuItem?.extraIngredientPrices);
   }, [menuItem]);
 
   const editMenuItem = async (e) => {
@@ -33,6 +37,8 @@ export default function MenuItemForm({ menuItem }) {
       description,
       category,
       price,
+      sizes,
+      extraIngredientPrices,
     };
     const res = await fetch(`/api/menu-items/${menuItem._id}`, {
       method: "PUT",
@@ -116,8 +122,15 @@ export default function MenuItemForm({ menuItem }) {
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>
-            <MenuItemPriceProps name="Sizes" addLabel="Add item size" />
             <MenuItemPriceProps
+              sizes={sizes}
+              setSizes={setSizes}
+              name="Sizes"
+              addLabel="Add item size"
+            />
+            <MenuItemPriceProps
+              extraIngredientPrices={extraIngredientPrices}
+              setExtraIngredientPrices={setExtraIngredientPrices}
               name="Extra ingredients"
               addLabel="Add ingredients prices"
             />

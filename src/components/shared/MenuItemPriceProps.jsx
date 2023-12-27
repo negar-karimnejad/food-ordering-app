@@ -1,11 +1,18 @@
 "use client";
-import { useState } from "react";
 import Input from "../ui/Input";
 import Plus from "../ui/Plus";
 import Trash from "../ui/Trash";
+import ChevronDown from "../ui/ChevronDown";
+import ChevronUp from "../ui/ChevronUp";
+import { useState } from "react";
 
-export default function MenuItemPriceProps({ name, addLabel }) {
-  const [props, setProps] = useState([]);
+export default function MenuItemPriceProps({
+  name,
+  addLabel,
+  props,
+  setProps,
+}) {
+  const [isOpen, setIsOpen] = useState(false);
 
   const addProp = () => {
     setProps((prev) => [...prev, { name: "", price: 0 }]);
@@ -20,9 +27,22 @@ export default function MenuItemPriceProps({ name, addLabel }) {
     });
   };
 
+  const removeProp = (indexToRemove) => {
+    const newProp = props.filter((v, index) => index !== indexToRemove);
+    setProps(newProp);
+  };
+
   return (
     <div className="border p-2 rounded-md">
-      <p className="text-gray-400">{name}</p>
+      <div className="flex items-center gap-2">
+        <button type="button" onClick={() => setIsOpen((prev) => !prev)}>
+          {isOpen ? <ChevronUp /> : <ChevronDown />}
+        </button>
+
+        <p className="text-gray-600 font-medium">
+          {name} ({props?.length})
+        </p>
+      </div>
       {props?.map((size, index) => (
         <div key={index} className="flex items-end gap-2 my-3">
           <div>
@@ -31,7 +51,7 @@ export default function MenuItemPriceProps({ name, addLabel }) {
             </label>
             <Input
               id="name"
-              className="w-full"
+              className="w-full placeholder:text-sm"
               type="text"
               placeholder="Size name"
               value={size.name}
@@ -44,7 +64,7 @@ export default function MenuItemPriceProps({ name, addLabel }) {
             </label>
             <Input
               id="price"
-              className="w-full"
+              className="w-full font-medium"
               type="text"
               placeholder="Base Price"
               value={size.price}
@@ -54,7 +74,7 @@ export default function MenuItemPriceProps({ name, addLabel }) {
           <button
             type="button"
             className="flex items-center justify-center border w-14 h-10 rounded-lg transition-all hover:bg-red-300"
-            onClick={() => setSizeCount((prevCount) => prevCount - 1)}
+            onClick={() => removeProp(index)}
           >
             <Trash />
           </button>

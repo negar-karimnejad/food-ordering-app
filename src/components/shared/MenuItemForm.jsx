@@ -16,6 +16,7 @@ export default function MenuItemForm({ menuItem }) {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
+  const [sizeCount, setSizeCount] = useState(0);
 
   useEffect(() => {
     setImage(menuItem?.image);
@@ -49,8 +50,7 @@ export default function MenuItemForm({ menuItem }) {
     }
   };
 
-  const [sizeCount, setSizeCount] = useState(0);
-
+  console.log(sizeCount);
   return (
     <>
       <div className="mt-10">

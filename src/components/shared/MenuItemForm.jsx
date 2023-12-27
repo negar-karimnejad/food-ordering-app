@@ -1,12 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
-import Trash from "../ui/Trash";
 import EditableImage from "./EditableImage";
-import { useRouter } from "next/navigation";
+import MenuItemPriceProps from "./MenuItemPriceProps";
 
 export default function MenuItemForm({ menuItem }) {
   const router = useRouter();
@@ -16,7 +16,6 @@ export default function MenuItemForm({ menuItem }) {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
-  const [sizeCount, setSizeCount] = useState(0);
 
   useEffect(() => {
     setImage(menuItem?.image);
@@ -50,7 +49,6 @@ export default function MenuItemForm({ menuItem }) {
     }
   };
 
-  console.log(sizeCount);
   return (
     <>
       <div className="mt-10">
@@ -118,58 +116,11 @@ export default function MenuItemForm({ menuItem }) {
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>
-            <div className="border p-2 rounded-md">
-              <p className="text-gray-400 mb-2">Sizes</p>
-              {Array(sizeCount).map((item, index) => (
-                <div key={index} className="flex items-end gap-2">
-                  <div>
-                    <label
-                      htmlFor="price"
-                      className="m-0 p-0 text-gray-400 text-sm"
-                    >
-                      Name
-                    </label>
-                    <Input
-                      id="name"
-                      className="w-full"
-                      type="text"
-                      placeholder="Size Name"
-                      value={price}
-                      onChange={(e) => setPrice(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="price"
-                      className="m-0 p-0 text-gray-400 text-sm"
-                    >
-                      Extra prices
-                    </label>
-                    <Input
-                      id="price"
-                      className="w-full"
-                      type="text"
-                      placeholder="Base Price"
-                      value={price}
-                      onChange={(e) => setPrice(e.target.value)}
-                    />
-                  </div>
-                  <button
-                    type="button"
-                    className="flex items-center justify-center border w-14 h-10 rounded-lg transition-all hover:bg-red-300"
-                  >
-                    <Trash />
-                  </button>
-                </div>
-              ))}
-              <button
-                onClick={() => setSizeCount((prevCount) => prevCount + 1)}
-                type="button"
-                className="bg-gray-200 rounded-lg w-full font-bold p-2 my-2"
-              >
-                + Add item size
-              </button>
-            </div>
+            <MenuItemPriceProps name="Sizes" addLabel="Add item size" />
+            <MenuItemPriceProps
+              name="Extra ingredients"
+              addLabel="Add ingredients prices"
+            />
             <Button type="submit" className="rounded-lg">
               Edit
             </Button>

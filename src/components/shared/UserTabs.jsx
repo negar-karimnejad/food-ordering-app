@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import SectionHeader from "../ui/SectionHeader";
 import { usePathname } from "next/navigation";
+import SectionHeader from "../ui/SectionHeader";
 
 const tabs = [
   { id: 1, title: "Profile", link: "/profile" },
@@ -13,6 +13,7 @@ const tabs = [
 
 export default function UserTabs({ user }) {
   const pathname = usePathname();
+
   return (
     <>
       {user?.admin ? (

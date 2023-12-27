@@ -24,10 +24,7 @@ export default function EditMenuItem() {
       });
   }, []);
 
-  const editMenuItem = async (e) => {
-    e.preventDefault();
-    //
-  };
+ 
 
   return (
     <>
@@ -40,7 +37,7 @@ export default function EditMenuItem() {
           >
             <LeftArrow /> Show all menu item
           </Link>
-          <MenuItemForm menuItem={menuItem} editMenuItem={editMenuItem} />
+          <MenuItemForm menuItem={menuItem}  />
         </div>
       ) : (
         <PageLoader />

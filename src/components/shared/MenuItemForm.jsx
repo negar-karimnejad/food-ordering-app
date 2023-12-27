@@ -123,14 +123,14 @@ export default function MenuItemForm({ menuItem }) {
               />
             </div>
             <MenuItemPriceProps
-              sizes={sizes}
-              setSizes={setSizes}
+              props={sizes}
+              setProps={setSizes}
               name="Sizes"
               addLabel="Add item size"
             />
             <MenuItemPriceProps
-              extraIngredientPrices={extraIngredientPrices}
-              setExtraIngredientPrices={setExtraIngredientPrices}
+              props={extraIngredientPrices}
+              setProps={setExtraIngredientPrices}
               name="Extra ingredients"
               addLabel="Add ingredients prices"
             />

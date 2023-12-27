@@ -34,7 +34,7 @@ export default function Profile() {
       {status === "loading" || !profileFetched ? (
         <PageLoader />
       ) : (
-        <div className="flex flex-col items-center justify-center mt-10">
+        <div className="flex flex-col items-center justify-center">
           <UserTabs user={user} />
           <UserForm user={user} />
         </div>

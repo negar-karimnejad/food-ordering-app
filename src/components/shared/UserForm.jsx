@@ -105,41 +105,49 @@ export default function UserForm({ user }) {
           />
         </div>
         <div className="flex flex-col justify-between gap-3 sm:flex-row sm:gap-5">
-          <div>
-            <label htmlFor="title" className="m-0 p-0 text-gray-400 text-sm">
-              Item name
+          <div className="w-full">
+            <label
+              htmlFor="postalcode"
+              className="m-0 p-0 text-gray-400 text-sm"
+            >
+              Postal code
             </label>
             <Input
               className="w-full"
               type="text"
+              id="postalcode"
               placeholder="Postal code"
               value={postalcode}
               onChange={(e) => setPostalcode(e.target.value)}
             />
           </div>
-          <div>
-            <label htmlFor="title" className="m-0 p-0 text-gray-400 text-sm">
-              Item name
+          <div className="w-full">
+            <label htmlFor="city" className="m-0 p-0 text-gray-400 text-sm">
+              City
             </label>
             <Input
               className="w-full"
               type="text"
+              id="city"
               placeholder="City"
               value={city}
               onChange={(e) => setCity(e.target.value)}
             />
           </div>
         </div>
-        <label htmlFor="title" className="m-0 p-0 text-gray-400 text-sm">
-          Item name
-        </label>
-        <Input
-          className="w-full"
-          type="text"
-          placeholder="Country"
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
-        />
+        <div>
+          <label htmlFor="country" className="m-0 p-0 text-gray-400 text-sm">
+            Country
+          </label>
+          <Input
+            className="w-full"
+            type="text"
+            id="country"
+            placeholder="Country"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+          />
+        </div>
         <Button type="submit" className="rounded-lg">
           Save
         </Button>

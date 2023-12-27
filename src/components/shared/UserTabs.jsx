@@ -16,7 +16,7 @@ export default function UserTabs({ user }) {
   return (
     <>
       {user?.admin ? (
-        <ul className="flex gap-2 items-center justify-center">
+        <ul className="flex gap-2 items-center justify-center mt-10">
           {tabs.map((tab) => (
             <li
               key={tab.id}

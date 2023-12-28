@@ -6,6 +6,7 @@ import UserTabs from "../../../components/shared/UserTabs";
 import { useProfile } from "../../../hook/useProfile";
 import { useParams } from "next/navigation";
 import PageLoader from "../../../components/ui/PageLoader";
+import { toast } from "react-toastify";
 
 export default function User() {
   const { loading, data } = useProfile();
@@ -22,25 +23,21 @@ export default function User() {
       });
   }, []);
 
-  const updateUser = async () => {
-    const data = {
-      name: fullname,
-      email: user?.email,
-      phone,
-      street,
-      postalcode,
-      city,
-      country,
-      image,
-      admin,
-    };
-    await fetch(`/api/users/${id}`, {
+  const updateUser = async (e, data) => {
+    e.preventDefault();
+
+    const res = await fetch("/api/profile", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
+    if (res.ok) {
+      toast.success("User updated successfully.");
+    } else {
+      toast.error("Something went wrong.");
+    }
   };
   return (
     <>

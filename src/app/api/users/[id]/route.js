@@ -7,6 +7,18 @@ export async function GET(_, res) {
   const { id: _id } = await res.params;
 
   const user = await User.findOne({ _id });
-  console.log(user);
+
   return NextResponse.json(user);
+}
+
+export async function PUT(req, res) {
+  await connectDB();
+  const data = await req.json();
+  const { id: _id } = await res.params;
+
+  const updatedUser = await User.updateOne({ _id }, { data });
+  console.log(data);
+  console.log(updatedUser);
+
+  return NextResponse.json(updatedUser);
 }

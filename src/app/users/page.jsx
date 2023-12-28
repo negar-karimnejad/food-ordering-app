@@ -1,13 +1,14 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import UserTabs from "../../components/shared/UserTabs";
 import Button from "../../components/ui/Button";
 import { useProfile } from "../../hook/useProfile";
-import { useRouter } from "next/navigation";
 
 export default function Users() {
   const router = useRouter();
+  
   const { loading, data } = useProfile();
   const [users, setUsers] = useState([]);
 

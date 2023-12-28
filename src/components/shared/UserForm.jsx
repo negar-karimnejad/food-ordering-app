@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { toast } from "react-toastify";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import EditableImage from "./EditableImage";
 
-export default function UserForm({ user,onSave }) {
+export default function UserForm({ user, onSave }) {
   const [fullname, setFullname] = useState(user?.name || "");
   const [phone, setPhone] = useState(user?.phone || "");
   const [street, setStreet] = useState(user?.street || "");
@@ -14,15 +13,24 @@ export default function UserForm({ user,onSave }) {
   const [city, setCity] = useState(user?.city || "");
   const [country, setCountry] = useState(user?.country || "");
   const [image, setImage] = useState(user?.image || "");
-  const [admin, setAdmin] = useState(user?.admin || false);
-
- 
+  const [admin, setAdmin] = useState(user?.admin || true);
 
   return (
     <div className="min-w-[350px] max-w-[600px]  mt-5 flex justify-between items-center sm:gap-5 flex-col sm:flex-row sm:items-start">
       <EditableImage image={image} setImage={setImage} />
       <form
-        onSubmit={onSave}
+        onSubmit={(e) =>
+          onSave(e, {
+            name: fullname,
+            phone,
+            street,
+            postalcode,
+            city,
+            country,
+            image,
+            admin,
+          })
+        }
         className="flex flex-col gap-3 flex-grow w-full"
       >
         <div>

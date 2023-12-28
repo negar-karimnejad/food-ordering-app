@@ -10,7 +10,7 @@ const MenuItemsSchema = new Schema(
     image: { type: String },
     title: { type: String, required: true },
     description: { type: String },
-    category: { type: String, required: true },
+    category: { type: mongoose.Types.ObjectId },
     basePrice: { type: Number },
     sizes: { type: [ExtraPriceSchema] },
     extraIngredientPrices: { type: [ExtraPriceSchema] },

@@ -9,6 +9,7 @@ const tabs = [
   { id: 2, title: "Categories", link: "/categories" },
   { id: 3, title: "Menu Items", link: "/menu-items" },
   { id: 4, title: "Users", link: "/users" },
+  { id: 5, title: "Orders", link: "/orders" },
 ];
 
 export default function UserTabs({ user }) {
@@ -17,7 +18,7 @@ export default function UserTabs({ user }) {
   return (
     <>
       {user?.admin ? (
-        <ul className="flex gap-2 items-center justify-center mt-10">
+        <ul className="flex gap-1 sm:gap-2 items-center justify-center mt-10">
           {tabs.map((tab) => (
             <li
               key={tab.id}

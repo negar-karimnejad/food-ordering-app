@@ -15,19 +15,25 @@ export default function MenuItemForm({ menuItem }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
+  const [basePrice, setBasePrice] = useState("");
   const [sizes, setSizes] = useState([]);
   const [extraIngredientPrices, setExtraIngredientPrices] = useState([]);
   const [ShowDeleteModal, setShowDeleteModal] = useState(false);
+
+  const [allCategories, setAllCategories] = useState([]);
 
   useEffect(() => {
     setImage(menuItem?.image);
     setTitle(menuItem?.title);
     setDescription(menuItem?.description);
     setCategory(menuItem?.category);
-    setPrice(menuItem?.price);
+    setBasePrice(menuItem?.basePrice);
     setSizes(menuItem?.sizes);
     setExtraIngredientPrices(menuItem?.extraIngredientPrices);
+
+    fetch("/api/category")
+      .then((res) => res.json())
+      .then((data) => setAllCategories(data));
   }, [menuItem]);
 
   const editMenuItem = async (e) => {
@@ -37,7 +43,7 @@ export default function MenuItemForm({ menuItem }) {
       title,
       description,
       category,
-      price,
+      basePrice,
       sizes,
       extraIngredientPrices,
     };
@@ -117,26 +123,34 @@ export default function MenuItemForm({ menuItem }) {
               >
                 Category
               </label>
-              <Input
-                className="w-full"
-                id="category"
-                type="text"
-                placeholder="Category"
+              <select
+                name=""
+                id=""
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-              />
+                className="w-full outline-none flex gap-2 border p-2 rounded-md"
+              >
+                {allCategories?.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.title}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
-              <label htmlFor="price" className="m-0 p-0 text-gray-400 text-sm">
-                Price
+              <label
+                htmlFor="basePrice"
+                className="m-0 p-0 text-gray-400 text-sm"
+              >
+                Base Price
               </label>
               <Input
-                id="price"
+                id="basePrice"
                 className="w-full"
                 type="text"
                 placeholder="Base Price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                value={basePrice}
+                onChange={(e) => setBasePrice(e.target.value)}
               />
             </div>
             <MenuItemPriceProps

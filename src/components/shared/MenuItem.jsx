@@ -32,19 +32,9 @@ export default function MenuItem({
             className="bg-white w-[400px] max-h-[500px] p-5 rounded-3xl overflow-y-scroll"
           >
             <div className="flex flex-col items-center justify-center gap-5">
-              <Image
-                src="/pizza.png"
-                width={100}
-                height={100}
-                alt="menu image"
-              />
-              <h4 className="font-bold text-xl">Cheese Pizza</h4>
-              <p className="text-center text-gray-500">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Dolore, quaerat. Magni fugiat quae nobis excepturi non aliquid
-                odit quas cupiditate in qui quis magnam alias nisi rerum,
-                facilis assumenda ullam.
-              </p>
+              <Image src={image} width={150} height={150} alt="menu image" />
+              <h4 className="font-bold text-xl">{title}</h4>
+              <p className="text-center text-gray-500">{description}</p>
               <h4 className="font-medium">Pick your size</h4>
               <form className="flex flex-col w-full gap-2 text-gray-600">
                 <div className="flex gap-2 border p-2 rounded-md">
@@ -72,9 +62,9 @@ export default function MenuItem({
                 </div>
               </form>
               <Button className="w-full">Add to cart $12</Button>
-              <Button className="w-full bg-transparent border text-black">
+              <button className="w-full bg-transparent border text-black p-1 rounded-lg">
                 Cancel
-              </Button>
+              </button>
             </div>
           </div>
         </div>

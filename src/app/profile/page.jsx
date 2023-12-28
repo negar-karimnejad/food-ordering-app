@@ -28,6 +28,33 @@ export default function Profile() {
   if (status === "unauthenticated") {
     return redirect("/login");
   }
+  const updateUser = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: fullname,
+          email: user?.email,
+          phone,
+          street,
+          postalcode,
+          city,
+          country,
+          image,
+          admin,
+        }),
+      });
+      if (res.ok) {
+        toast.success("User updated successfully.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -36,7 +63,7 @@ export default function Profile() {
       ) : (
         <div className="flex flex-col items-center justify-center">
           <UserTabs user={user} />
-          <UserForm user={user} />
+          <UserForm user={user} onSave={updateUser} />
         </div>
       )}
     </>

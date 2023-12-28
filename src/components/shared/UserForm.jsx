@@ -6,7 +6,7 @@ import Button from "../ui/Button";
 import Input from "../ui/Input";
 import EditableImage from "./EditableImage";
 
-export default function UserForm({ user }) {
+export default function UserForm({ user,onSave }) {
   const [fullname, setFullname] = useState(user?.name || "");
   const [phone, setPhone] = useState(user?.phone || "");
   const [street, setStreet] = useState(user?.street || "");
@@ -16,39 +16,13 @@ export default function UserForm({ user }) {
   const [image, setImage] = useState(user?.image || "");
   const [admin, setAdmin] = useState(user?.admin || false);
 
-  const updateUser = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch("/api/profile", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: fullname,
-          email: user?.email,
-          phone,
-          street,
-          postalcode,
-          city,
-          country,
-          image,
-          admin,
-        }),
-      });
-      if (res.ok) {
-        toast.success("User updated successfully.");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+ 
 
   return (
     <div className="min-w-[350px] max-w-[600px]  mt-5 flex justify-between items-center sm:gap-5 flex-col sm:flex-row sm:items-start">
       <EditableImage image={image} setImage={setImage} />
       <form
-        onSubmit={updateUser}
+        onSubmit={onSave}
         className="flex flex-col gap-3 flex-grow w-full"
       >
         <div>

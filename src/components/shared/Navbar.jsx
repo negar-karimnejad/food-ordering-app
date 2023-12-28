@@ -14,11 +14,11 @@ export default function Navbar() {
 
   return (
     <>
-      {/* {session.status === "loading" && (
+      {session.status === "loading" && (
         <div className="fixed w-screen h-screen flex justify-center items-center bg-black/50 z-[999]">
           <Loader />
         </div>
-      )} */}
+      )}
       <div className="sm:px-24 px-10 py-5 flex justify-between items-center">
         <div className="flex items-center gap-8">
           <Link href="/">
@@ -43,7 +43,7 @@ export default function Navbar() {
         {session.status === "authenticated" ? (
           <div className="flex items-center gap-5">
             <Link href="/profile">
-              {user.image ? (
+              {user?.image ? (
                 <div className="w-[40px] h-[40px] rounded-full overflow-hidden">
                   <Image
                     src={user.image}

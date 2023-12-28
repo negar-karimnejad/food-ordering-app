@@ -12,7 +12,7 @@ export async function PUT(req) {
   const email = session.user.email;
   const user = await User.findOne({ email });
   await User.updateOne({ email }, data);
-console.log(user);
+
   return NextResponse.json({ message: "User updated successfully" });
 }
 

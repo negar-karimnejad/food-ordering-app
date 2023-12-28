@@ -13,7 +13,7 @@ export default function UserForm({ user, onSave }) {
   const [city, setCity] = useState(user?.city || "");
   const [country, setCountry] = useState(user?.country || "");
   const [image, setImage] = useState(user?.image || "");
-  const [admin, setAdmin] = useState(user?.admin || true);
+  const [admin, setAdmin] = useState(user?.admin || false);
 
   return (
     <div className="min-w-[350px] max-w-[600px]  mt-5 flex justify-between items-center sm:gap-5 flex-col sm:flex-row sm:items-start">
@@ -74,12 +74,12 @@ export default function UserForm({ user, onSave }) {
           />
         </div>
         <div>
-          <label htmlFor="address" className="m-0 p-0 text-gray-400 text-sm">
+          <label htmlFor="street" className="m-0 p-0 text-gray-400 text-sm">
             Street Address
           </label>
           <Input
             className="w-full"
-            id="address"
+            id="street"
             type="text"
             placeholder="Street Address"
             value={street}

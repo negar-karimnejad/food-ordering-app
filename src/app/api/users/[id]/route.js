@@ -1,5 +1,5 @@
-import { User } from "../../../../../model/User";
 import { NextResponse } from "next/server";
+import { User } from "../../../../../model/User";
 import connectDB from "../../../utils/db";
 
 export async function GET(_, res) {
@@ -16,9 +16,7 @@ export async function PUT(req, res) {
   const data = await req.json();
   const { id: _id } = await res.params;
 
-  const updatedUser = await User.updateOne({ _id }, { data });
-  console.log(data);
-  console.log(updatedUser);
+  const updatedUser = await User.updateOne({ _id }, data);
 
   return NextResponse.json(updatedUser);
 }

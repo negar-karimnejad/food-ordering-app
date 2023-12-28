@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 import UserForm from "../../components/shared/UserForm";
 import UserTabs from "../../components/shared/UserTabs";
 import PageLoader from "../../components/ui/PageLoader";
+import { toast } from "react-toastify";
 
 export default function Profile() {
   const session = useSession();
   const { status } = session;
-  console.log("profile session", session);
+
   const [user, setUser] = useState([]);
   const [profileFetched, setProfileFetched] = useState(false);
 
@@ -28,7 +29,7 @@ export default function Profile() {
   if (status === "unauthenticated") {
     return redirect("/login");
   }
-  const updateUser = async (e) => {
+  const updateUser = async (e, data) => {
     e.preventDefault();
     try {
       const res = await fetch("/api/profile", {
@@ -36,17 +37,7 @@ export default function Profile() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name: fullname,
-          email: user?.email,
-          phone,
-          street,
-          postalcode,
-          city,
-          country,
-          image,
-          admin,
-        }),
+        body: JSON.stringify(data),
       });
       if (res.ok) {
         toast.success("User updated successfully.");

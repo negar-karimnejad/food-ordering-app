@@ -1,14 +1,15 @@
 "use client";
 
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import UserForm from "../../../components/shared/UserForm";
 import UserTabs from "../../../components/shared/UserTabs";
-import { useProfile } from "../../../hook/useProfile";
-import { useParams } from "next/navigation";
 import PageLoader from "../../../components/ui/PageLoader";
-import { toast } from "react-toastify";
+import { useProfile } from "../../../hook/useProfile";
 
 export default function User() {
+  const router = useRouter();
   const { loading, data } = useProfile();
   const [user, setUser] = useState(null);
   const [userFetched, setUserFetched] = useState(false);
@@ -26,7 +27,7 @@ export default function User() {
   const updateUser = async (e, data) => {
     e.preventDefault();
 
-    const res = await fetch("/api/profile", {
+    const res = await fetch(`/api/users/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -35,10 +36,12 @@ export default function User() {
     });
     if (res.ok) {
       toast.success("User updated successfully.");
+      router.push("/users");
     } else {
       toast.error("Something went wrong.");
     }
   };
+
   return (
     <>
       {userFetched ? (

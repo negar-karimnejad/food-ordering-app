@@ -2,7 +2,7 @@ import SectionHeader from "../ui/SectionHeader";
 
 export default function About() {
   return (
-    <section className="px-10 sm:px-24 my-20">
+    <section className="px-10 sm:px-24 my-20" id="about">
       <SectionHeader smallTitle="Our story" mainTitle="About us" />
       <div className="text-gray-500 text-center max-w-md mx-auto mt-4 flex flex-col gap-4">
         <p>

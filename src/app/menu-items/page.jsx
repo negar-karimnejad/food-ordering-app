@@ -14,7 +14,9 @@ export default function Menuitems() {
   async function getMenuItems() {
     await fetch("/api/menu-items")
       .then((res) => res.json())
-      .then((data) => setMenuItems(data));
+      .then((data) => {
+        setMenuItems(data.slice(-3));
+      });
   }
 
   useEffect(() => {

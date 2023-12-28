@@ -7,21 +7,41 @@ import { authOptions } from "../auth/[...nextauth]/options";
 export async function PUT(req) {
   await connectDB();
   const data = await req.json();
+  const { _id } = data;
 
-  const session = await getServerSession(authOptions);
-  const email = session.user.email;
-  const user = await User.findOne({ email });
-  await User.updateOne({ email }, data);
+  let filter = {};
+  if (_id) {
+    filter = { _id };
+  } else {
+    const session = await getServerSession(authOptions);
+    const email = session.user.email;
+    filter = { email };
+  }
 
-  return NextResponse.json({ message: "User updated successfully" });
+  const updatedUser = await User.findOne(filter);
+  await User.updateOne(filter, data);
+
+  return NextResponse.json(true);
 }
 
-export async function GET() {
+export async function GET(req, res) {
   await connectDB();
+  const url = new URL(req.url);
+  const _id = url.searchParams.get("_id");
 
-  const session = await getServerSession(authOptions);
-  const email = session.user.email;
-  const user = await User.findOne({ email }).lean();
+  let filterUser = {};
+  if (_id) {
+    filterUser = { _id };
+  } else {
+    const session = await getServerSession(authOptions);
+    const email = session?.user?.email;
+    if (!email) {
+      return NextResponse.json({});
+    }
+    filterUser = { email };
+  }
+
+  const user = await User.findOne(filterUser).lean();
 
   return NextResponse.json({ ...user });
 }

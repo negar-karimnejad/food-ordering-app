@@ -32,10 +32,10 @@ export default function Navbar() {
               <Link href="/menu">Menu</Link>
             </li>
             <li>
-              <Link href="/about">About</Link>
+              <Link href="#about">About</Link>
             </li>
             <li>
-              <Link href="/contact">Contact</Link>
+              <Link href="#contact">Contact</Link>
             </li>
           </ul>
         </div>
@@ -44,12 +44,12 @@ export default function Navbar() {
           <div className="flex items-center gap-5">
             <Link href="/profile">
               {user?.image ? (
-                <div className="w-[40px] h-[40px] rounded-full overflow-hidden">
+                <div className="w-[40px] h-[40px]">
                   <Image
                     src={user.image}
-                    width={40}
-                    height={40}
-                    className="w-fit h-fit object-contain"
+                    width={60}
+                    height={60}
+                    className="w-10 h-10 rounded-full mt-1 object-cover object-top"
                     alt="user image"
                   />
                 </div>

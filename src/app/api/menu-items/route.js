@@ -12,7 +12,7 @@ export async function GET() {
 export async function POST(req) {
   await connectDB();
   const data = await req.json();
-
+  console.log(data);
   const newMenuItem = await MenuItems.create(data);
   revalidatePath("/menu-items/new");
 

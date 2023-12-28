@@ -9,7 +9,7 @@ export default function Menu() {
   useEffect(() => {
     fetch("/api/menu-items")
       .then((res) => res.json())
-      .then((data) => setBestSellers(data));
+      .then((data) => setBestSellers(data.slice(-3)));
   }, []);
 
   return (

@@ -8,9 +8,8 @@ export default function MenuItem({
   image,
   title,
   description,
-  price,
-  sizes,
   basePrice,
+  sizes,
   extraIngredientPrices,
 }) {
   const [showAddCartModal, setShowAddCartModal] = useState(false);
@@ -21,7 +20,7 @@ export default function MenuItem({
       <h4 className="font-bold text-lg">{title}</h4>
       <p className="text-gray-700 line-clamp-3">{description}</p>
       <Button onClick={() => setShowAddCartModal(true)} className="w-full">
-        Add to cart ${price}
+        Add to cart ${basePrice}
       </Button>
       {showAddCartModal && (
         <div

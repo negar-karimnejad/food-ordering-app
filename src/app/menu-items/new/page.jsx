@@ -10,6 +10,7 @@ import Button from "../../../components/ui/Button";
 import Input from "../../../components/ui/Input";
 import LeftArrow from "../../../components/ui/LeftArrow";
 import { useProfile } from "../../../hook/useProfile";
+import MenuItemPriceProps from "../../../components/shared/MenuItemPriceProps";
 
 export default function NewMenuItems() {
   const [image, setImage] = useState("");
@@ -18,6 +19,8 @@ export default function NewMenuItems() {
   const [category, setCategory] = useState("");
   const [basePrice, setBasePrice] = useState("");
   const [allCategories, setAllCategories] = useState([]);
+  const [sizes, setSizes] = useState([]);
+  const [extraIngredientPrices, setExtraIngredientPrices] = useState([]);
 
   useEffect(() => {
     fetch("/api/category")
@@ -31,12 +34,18 @@ export default function NewMenuItems() {
   const saveMenuItem = async (e) => {
     e.preventDefault();
 
-    const data = { image, title, description, category, basePrice };
-
     const res = await fetch("/api/menu-items", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        image,
+        title,
+        description,
+        category,
+        basePrice,
+        sizes,
+        extraIngredientPrices,
+      }),
     });
 
     if (res.ok) {
@@ -95,19 +104,15 @@ export default function NewMenuItems() {
                 />
               </div>
               <div>
-                <label
-                  htmlFor="category"
-                  className="m-0 p-0 text-gray-400 text-sm"
-                >
+                <label className="m-0 p-0 text-gray-400 text-sm">
                   Category
                 </label>
                 <select
-                  name=""
-                  id=""
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                   className="w-full outline-none flex gap-2 border p-2 rounded-md"
                 >
+                  <option value="-1">Choose a category</option>
                   {allCategories?.map((category) => (
                     <option key={category._id} value={category._id}>
                       {category.title}
@@ -130,7 +135,18 @@ export default function NewMenuItems() {
                   onChange={(e) => setBasePrice(e.target.value)}
                 />
               </div>
-
+              <MenuItemPriceProps
+                props={sizes}
+                setProps={setSizes}
+                name="Sizes"
+                addLabel="Add item size"
+              />
+              <MenuItemPriceProps
+                props={extraIngredientPrices}
+                setProps={setExtraIngredientPrices}
+                name="Extra ingredients"
+                addLabel="Add ingredients prices"
+              />
               <Button type="submit" className="rounded-lg">
                 Save
               </Button>

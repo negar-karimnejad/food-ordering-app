@@ -15,7 +15,7 @@ export default function Menuitems() {
     await fetch("/api/menu-items")
       .then((res) => res.json())
       .then((data) => {
-        setMenuItems(data.slice(-3));
+        setMenuItems(data);
       });
   }
 
@@ -44,12 +44,12 @@ export default function Menuitems() {
         {menuItems?.length > 0 ? (
           <div className="mt-10">
             <p className="text-gray-600">Edit menu items:</p>
-            <div className="flex gap-2 flex-wrap items-center justify-center">
+            <div className="flex gap-2 flex-wrap items-center">
               {menuItems.map((menu) => (
                 <Link
                   href={`menu-items/edit/${menu._id}`}
                   key={menu._id}
-                  className="bg-gray-300 rounded-lg p-7 gap-2 w-52 h-40 flex flex-grow flex-col justify-center items-center"
+                  className="bg-gray-300 rounded-lg text-center p-7 gap-2 w-52 h-40 flex flex-grow md:flex-grow-0 flex-col justify-center items-center"
                 >
                   <div className="w-full h-full rounded-lg ">
                     <Image
@@ -60,7 +60,7 @@ export default function Menuitems() {
                       className="w-full h-full object-contain"
                     />
                   </div>
-                  <h3 className="font-bold">{menu.title}</h3>
+                  <h3 className="font-bold leading-4">{menu.title}</h3>
                 </Link>
               ))}
             </div>

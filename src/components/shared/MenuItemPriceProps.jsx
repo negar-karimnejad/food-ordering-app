@@ -42,50 +42,52 @@ export default function MenuItemPriceProps({
           {name} ({props?.length})
         </p>
       </div>
-      {props?.map((size, index) => (
-        <div key={index} className="flex items-end gap-2 my-3">
-          <div>
-            <label htmlFor="price" className="m-0 p-0 text-gray-400 text-sm">
-              Name
-            </label>
-            <Input
-              id="name"
-              className="w-full placeholder:text-sm"
-              type="text"
-              placeholder="Size name"
-              value={size.name}
-              onChange={(e) => editProp(e, index, "name")}
-            />
+      <div className={`${isOpen ? "block" : "hidden"}`}>
+        {props?.map((size, index) => (
+          <div key={index} className="flex items-end gap-2 my-3">
+            <div>
+              <label htmlFor="price" className="m-0 p-0 text-gray-400 text-sm">
+                Name
+              </label>
+              <Input
+                id="name"
+                className="w-full placeholder:text-sm"
+                type="text"
+                placeholder="Size name"
+                value={size.name}
+                onChange={(e) => editProp(e, index, "name")}
+              />
+            </div>
+            <div>
+              <label htmlFor="price" className="m-0 p-0 text-gray-400 text-sm">
+                Extra prices
+              </label>
+              <Input
+                id="price"
+                className="w-full font-medium"
+                type="text"
+                placeholder="Base Price"
+                value={size.price}
+                onChange={(e) => editProp(e, index, "price")}
+              />
+            </div>
+            <button
+              type="button"
+              className="flex items-center justify-center border w-14 h-10 rounded-lg transition-all hover:bg-red-300"
+              onClick={() => removeProp(index)}
+            >
+              <Trash />
+            </button>
           </div>
-          <div>
-            <label htmlFor="price" className="m-0 p-0 text-gray-400 text-sm">
-              Extra prices
-            </label>
-            <Input
-              id="price"
-              className="w-full font-medium"
-              type="text"
-              placeholder="Base Price"
-              value={size.price}
-              onChange={(e) => editProp(e, index, "price")}
-            />
-          </div>
-          <button
-            type="button"
-            className="flex items-center justify-center border w-14 h-10 rounded-lg transition-all hover:bg-red-300"
-            onClick={() => removeProp(index)}
-          >
-            <Trash />
-          </button>
-        </div>
-      ))}
-      <button
-        onClick={() => addProp()}
-        type="button"
-        className="flex items-center justify-center gap-2 bg-gray-200 rounded-lg w-full font-bold p-2 my-2"
-      >
-        <Plus /> {addLabel}
-      </button>
+        ))}
+        <button
+          onClick={() => addProp()}
+          type="button"
+          className="flex items-center justify-center gap-2 bg-gray-200 rounded-lg w-full font-bold p-2 my-2"
+        >
+          <Plus /> {addLabel}
+        </button>
+      </div>
     </div>
   );
 }

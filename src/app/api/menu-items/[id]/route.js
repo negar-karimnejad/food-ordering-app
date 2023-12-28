@@ -16,7 +16,13 @@ export async function PUT(req, res) {
 
   const updatedMenuItem = await MenuItems.updateOne({ _id }, data);
 
-  revalidatePath(`menu-items/edit/${_id}`);
-
   return NextResponse.json(updatedMenuItem);
+}
+
+export async function DELETE(_, res) {
+  const { id: _id } = await res.params;
+  
+  await MenuItems.deleteOne({ _id });
+
+  return NextResponse.json({ message: "Menu item deleted successfully" });
 }

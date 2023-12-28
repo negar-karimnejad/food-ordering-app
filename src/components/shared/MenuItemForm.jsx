@@ -18,6 +18,7 @@ export default function MenuItemForm({ menuItem }) {
   const [price, setPrice] = useState("");
   const [sizes, setSizes] = useState([]);
   const [extraIngredientPrices, setExtraIngredientPrices] = useState([]);
+  const [ShowDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     setImage(menuItem?.image);
@@ -49,6 +50,22 @@ export default function MenuItemForm({ menuItem }) {
     });
     if (res.ok) {
       toast.success("Menu Item updated successfully");
+      router.push("/menu-items");
+    } else {
+      toast.error("Something went wrong.");
+    }
+  };
+
+  const deleteMenuItem = async () => {
+    const res = await fetch(`/api/menu-items/${menuItem._id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (res.ok) {
+      toast.success("Menu item delered successfully");
+      setShowDeleteModal(false);
       router.push("/menu-items");
     } else {
       toast.error("Something went wrong.");
@@ -137,7 +154,34 @@ export default function MenuItemForm({ menuItem }) {
             <Button type="submit" className="rounded-lg">
               Edit
             </Button>
+            <Button
+              type="button"
+              onClick={() => setShowDeleteModal(true)}
+              className="rounded-lg border bg-transparent text-gray-700"
+            >
+              Delete this menu item
+            </Button>
           </form>
+          {ShowDeleteModal && (
+            <div className="fixed top-0 left-0 w-screen h-screen bg-black/80 flex items-center justify-center">
+              <div className="bg-white rounded-lg px-5 w-72 h-40 flex flex-col gap-y-5 justify-center items-center">
+                <p className="font-semibold text-center">
+                  Are you sure you want to delete?
+                </p>
+                <div className="flex gap-2">
+                  <button
+                    className="px-4 py-1.5 rounded-lg border font-bold bg-transparent text-gray-700 hover:opacity-80"
+                    onClick={() => setShowDeleteModal(false)}
+                  >
+                    Cancel
+                  </button>
+                  <Button className="rounded-lg" onClick={deleteMenuItem}>
+                    Yes,Delete!
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>

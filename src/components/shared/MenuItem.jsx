@@ -1,22 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import { useContext } from "react";
+import { CartContext } from "../../app/utils/AuthProvider";
 import Button from "../ui/Button";
 
-export default function MenuItem({
-  image,
-  title,
-  description,
-  basePrice,
-  sizes,
-  extraIngredientPrices,
-}) {
+export default function MenuItem(menuItem) {
+  const { image, title, description, basePrice, sizes, extraIngredientPrices } =
+    menuItem;
+
+  const { addToCart } = useContext(CartContext);
   // const [showAddCartModal, setShowAddCartModal] = useState(false);
 
-  const addToCart =()=>{
-    
-  }
   return (
     <div className="bg-gray-200 rounded-lg p-5 flex flex-col items-center justify-center gap-4 shadow-lg transition-all hover:bg-gray-50">
       <Image src={image} width={150} height={150} alt="menu image" />
@@ -24,7 +19,7 @@ export default function MenuItem({
       <p className="text-gray-700 line-clamp-3">{description}</p>
       <Button
         //  onClick={() => setShowAddCartModal(true)}
-        onClick={addToCart}
+        onClick={() => addToCart(menuItem)}
         className="w-full"
       >
         Add to cart ${basePrice}

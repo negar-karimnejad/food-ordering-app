@@ -9,7 +9,7 @@ import { useProfile } from "../../hook/useProfile";
 export default function Users() {
   const router = useRouter();
 
-  const { loading, data } = useProfile();
+  const { data } = useProfile();
   const [users, setUsers] = useState([]);
 
   useEffect(() => {

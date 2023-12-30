@@ -3,16 +3,26 @@
 import { SessionProvider } from "next-auth/react";
 import { createContext, useState } from "react";
 
-const cartContext = createContext();
+export const CartContext = createContext({});
 
 export default function AuthProvider({ children }) {
   const [cartProducts, setCartProducts] = useState([]);
 
+  function addToCart(product, size = null, extras = []) {
+    setCartProducts((prevProducts) => {
+      const cartProduct = { ...product, size, extras };
+      const newProducts = [...prevProducts, cartProduct];
+      return newProducts;
+    });
+  }
+
   return (
     <SessionProvider>
-      <cartContext.Provider value={{ cartProducts, setCartProducts }}>
+      <CartContext.Provider
+        value={{ cartProducts, setCartProducts, addToCart }}
+      >
         {children}
-      </cartContext.Provider>
+      </CartContext.Provider>
     </SessionProvider>
   );
 }

@@ -6,11 +6,14 @@ import Link from "next/link";
 import Button from "../ui/Button";
 import Loader from "../ui/Loader";
 import ShoppingCart from "../ui/ShoppingCart";
+import { CartContext } from "../../app/utils/AuthProvider";
+import { useContext } from "react";
 
 export default function Navbar() {
   const session = useSession();
   const user = session?.data?.user;
   const username = user?.name || user?.email;
+  const { cartProducts } = useContext(CartContext);
 
   return (
     <>
@@ -68,12 +71,12 @@ export default function Navbar() {
             >
               Logout
             </Button>
-            <div className="relative">
+            <Link href="/cart" className="relative">
               <ShoppingCart />
               <span className="w-5 h-5 text-white text-xs flex items-center justify-center bg-primary rounded-full absolute -right-3 -top-2">
-                10
+                {cartProducts?.length}
               </span>
-            </div>
+            </Link>
           </div>
         ) : (
           <div className="flex items-center gap-2">

@@ -12,17 +12,24 @@ export default function MenuItem({
   sizes,
   extraIngredientPrices,
 }) {
-  const [showAddCartModal, setShowAddCartModal] = useState(false);
+  // const [showAddCartModal, setShowAddCartModal] = useState(false);
 
+  const addToCart =()=>{
+    
+  }
   return (
     <div className="bg-gray-200 rounded-lg p-5 flex flex-col items-center justify-center gap-4 shadow-lg transition-all hover:bg-gray-50">
       <Image src={image} width={150} height={150} alt="menu image" />
       <h4 className="font-bold text-lg">{title}</h4>
       <p className="text-gray-700 line-clamp-3">{description}</p>
-      <Button onClick={() => setShowAddCartModal(true)} className="w-full">
+      <Button
+        //  onClick={() => setShowAddCartModal(true)}
+        onClick={addToCart}
+        className="w-full"
+      >
         Add to cart ${basePrice}
       </Button>
-      {showAddCartModal && (
+      {/* {showAddCartModal && (
         <div
           className="flex items-center justify-center z-50 fixed left-0 top-0 w-screen h-screen bg-black/80"
           onClick={() => setShowAddCartModal(false)}
@@ -68,7 +75,7 @@ export default function MenuItem({
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

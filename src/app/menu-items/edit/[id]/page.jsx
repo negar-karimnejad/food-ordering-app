@@ -12,7 +12,7 @@ import { useProfile } from "../../../../hook/useProfile";
 export default function EditMenuItem() {
   const [menuItem, setMenuItem] = useState(null);
 
-  const { loading, data } = useProfile();
+  const {  data } = useProfile();
   const { id } = useParams();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function EditMenuItem() {
         const menu = menuItems.find((menu) => menu._id === id);
         setMenuItem(menu);
       });
-  }, []);
+  }, [id]);
 
  
 

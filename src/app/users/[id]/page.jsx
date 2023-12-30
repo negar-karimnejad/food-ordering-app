@@ -10,7 +10,7 @@ import { useProfile } from "../../../hook/useProfile";
 
 export default function User() {
   const router = useRouter();
-  const { loading, data } = useProfile();
+  const { data } = useProfile();
   const [user, setUser] = useState(null);
   const [userFetched, setUserFetched] = useState(false);
   const { id } = useParams();
@@ -22,7 +22,7 @@ export default function User() {
         setUser(data);
         setUserFetched(true);
       });
-  }, []);
+  }, [id]);
 
   const updateUser = async (e, data) => {
     e.preventDefault();

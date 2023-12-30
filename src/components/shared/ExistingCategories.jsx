@@ -11,7 +11,7 @@ export default function ExistingCategories({ categories, getCategories }) {
 
   useEffect(() => {
     getCategories();
-  }, []);
+  }, [getCategories]);
 
   const editCategory = async (id) => {
     const res = await fetch(`/api/category/${id}`, {

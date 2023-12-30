@@ -24,7 +24,7 @@ export default function Menus() {
       });
     setLoading(false);
   }, []);
-
+  // console.log(menuItems);
   return (
     <section className="px-10 sm:px-24 mt-10">
       {loading ? (
@@ -35,34 +35,17 @@ export default function Menus() {
         <>
           {categories.length > 0 &&
             categories.map((category) => (
-              <>
-                <SectionHeader key={category._id} mainTitle={category.title} />
+              <div key={category._id}>
+                <SectionHeader mainTitle={category.title} />
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   {menuItems
-                    ?.filter((menu) => menu.category === category._id)
-                    .map((menu) => (
-                      <MenuItem key={menu._id} {...menu} />
+                    ?.filter((item) => item.category === category._id)
+                    .map((item) => (
+                      <MenuItem key={item._id} {...item} />
                     ))}
                 </div>
-              </>
+              </div>
             ))}
-          {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {menuItems.map((menu) => (
-              <MenuItem key={menu._id} {...menu} />
-            ))}
-          </div>
-          <SectionHeader mainTitle="Dessert" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {dessert.map((menu) => (
-              <MenuItem key={menu._id} {...menu} />
-            ))}
-          </div>
-          <SectionHeader mainTitle="Pasta" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {pasta.map((menu) => (
-              <MenuItem key={menu._id} {...menu} />
-            ))}
-          </div> */}
         </>
       )}
     </section>

@@ -1,32 +1,37 @@
 "use client";
 
 import Image from "next/image";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../../app/utils/AuthProvider";
 import Button from "../ui/Button";
+import MenuItemTile from "../shared/MenuItemTile";
+import { toast } from "react-toastify";
 
 export default function MenuItem(menuItem) {
   const { image, title, description, basePrice, sizes, extraIngredientPrices } =
     menuItem;
-
+  console.log(extraIngredientPrices);
+  const [showAddCartModal, setShowAddCartModal] = useState(false);
   const { addToCart } = useContext(CartContext);
-  // const [showAddCartModal, setShowAddCartModal] = useState(false);
+
+  const handleToAddToCartButtonClick = () => {
+    if (sizes.length === 0 && extraIngredientPrices.length === 0) {
+      addToCart(menuItem);
+      toast.success("Added to cart!");
+    } else {
+      setShowAddCartModal(true);
+    }
+  };
 
   return (
-    <div className="bg-gray-200 rounded-lg p-5 flex flex-col items-center justify-center gap-4 shadow-lg transition-all hover:bg-gray-50">
-      <Image src={image} width={150} height={150} alt="menu image" />
-      <h4 className="font-bold text-lg">{title}</h4>
-      <p className="text-gray-700 line-clamp-3">{description}</p>
-      <Button
-        //  onClick={() => setShowAddCartModal(true)}
-        onClick={() => addToCart(menuItem)}
-        className="w-full"
-      >
-        Add to cart ${basePrice}
-      </Button>
-      {/* {showAddCartModal && (
+    <>
+      <MenuItemTile
+        menuItem={menuItem}
+        onAddToCart={handleToAddToCartButtonClick}
+      />
+      {showAddCartModal && (
         <div
-          className="flex items-center justify-center z-50 fixed left-0 top-0 w-screen h-screen bg-black/80"
+          className="flex items-center justify-center z-50 fixed left-0 top-0 w-screen h-screen bg-black/20"
           onClick={() => setShowAddCartModal(false)}
         >
           <div
@@ -34,43 +39,49 @@ export default function MenuItem(menuItem) {
             className="bg-white w-[400px] max-h-[500px] p-5 rounded-3xl overflow-y-scroll"
           >
             <div className="flex flex-col items-center justify-center gap-5">
-              <Image src={image} width={150} height={150} alt="menu image" />
+              <Image src={image} width={200} height={200} alt="menu image" />
               <h4 className="font-bold text-xl">{title}</h4>
               <p className="text-center text-gray-500">{description}</p>
               <h4 className="font-medium">Pick your size</h4>
               <form className="flex flex-col w-full gap-2 text-gray-600">
-                <div className="flex gap-2 border p-2 rounded-md">
-                  <input type="radio" name="pizza-size" id="" />
-                  <label htmlFor="">Small $12</label>
-                </div>
-                <div className="flex gap-2 border p-2 rounded-md">
-                  <input type="radio" name="pizza-size" id="" />
-                  <label htmlFor="">Medium $14</label>
-                </div>
-                <div className="flex gap-2 border p-2 rounded-md">
-                  <input type="radio" name="pizza-size" id="" />
-                  <label htmlFor="">Large $16</label>
-                </div>
+                {sizes.length > 0 &&
+                  sizes.map((size) => (
+                    <div
+                      key={size._id}
+                      className="flex gap-2 border p-2 rounded-md"
+                    >
+                      <input type="radio" name="pizza-size" id="" />
+                      <label htmlFor="">
+                        {size.name} ${size.price}
+                      </label>
+                    </div>
+                  ))}
               </form>
               <h4 className="font-medium">Any extras?</h4>
               <form className="flex flex-col w-full gap-2 text-gray-600">
-                <div className="flex gap-2 border p-2 rounded-md">
-                  <input type="checkbox" name="" id="" />
-                  <label htmlFor="">Extra cheese +$1</label>
-                </div>
-                <div className="flex gap-2 border p-2 rounded-md">
-                  <input type="checkbox" name="" id="" />
-                  <label htmlFor="">Extra pepperoni +$2</label>
-                </div>
+                {extraIngredientPrices.length > 0 &&
+                  extraIngredientPrices?.map((extra) => (
+                    <div
+                      key={extra._id}
+                      className="flex gap-2 border p-2 rounded-md"
+                    >
+                      <input type="checkbox" name="extras" id="extras" />
+                      <label htmlFor="extras">
+                        {extra.name} +${extra.price}
+                      </label>
+                    </div>
+                  ))}
               </form>
-              <Button className="w-full">Add to cart $12</Button>
+              <Button onClick={() => addToCart(menuItem)} className="w-full">
+                Add to cart $12
+              </Button>
               <button className="w-full bg-transparent border text-black p-1 rounded-lg">
                 Cancel
               </button>
             </div>
           </div>
         </div>
-      )} */}
-    </div>
+      )}
+    </>
   );
 }

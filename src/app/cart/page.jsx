@@ -1,44 +1,49 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-import SectionHeader from "../../components/ui/SectionHeader";
-import Trash from "../../components/ui/Trash";
+import { useContext, useEffect, useState } from "react";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
-import { useState } from "react";
-import { useSession } from "next-auth/react";
+import SectionHeader from "../../components/ui/SectionHeader";
+import Trash from "../../components/ui/Trash";
+import { CartContext } from "../utils/AuthProvider";
 
 export default function Cart() {
+  const session = useSession();
+  const user = session?.data?.user;
+
   const [phone, setPhone] = useState(user?.phone || "");
   const [street, setStreet] = useState(user?.street || "");
   const [postalcode, setPostalcode] = useState(user?.postalcode || "");
   const [city, setCity] = useState(user?.city || "");
   const [country, setCountry] = useState(user?.country || "");
 
-  const session = useSession();
-  const user = session?.data?.user;
-  
+  const { cartProducts, removeCartProduct } = useContext(CartContext);
+
   return (
     <section className="px-10 sm:px-24 my-10">
       <SectionHeader mainTitle="cart" />
-      <div className="flex mt-10 gap-10">
+      <div className="flex flex-col lg:flex-row mt-10 gap-10">
         <div className="flex-1">
-          <div className="border border-white border-b-gray-100 flex items-center justify-between font-bold gap-5 p-2">
-            <Image
-              src="/buffalo-chicken-pizza.png"
-              alt="pizza"
-              width={90}
-              height={90}
-            />
-            <p>Classic Chicken</p>
-            <p>$12</p>
-            <button
-              type="button"
-              className="flex items-center justify-center border w-10 h-10 rounded-lg transition-all hover:bg-red-300"
+          {cartProducts?.map((product) => (
+            <div
+              key={product._id}
+              className="border border-white border-b-gray-100 flex items-center justify-between font-bold gap-5 p-2"
             >
-              <Trash />
-            </button>
-          </div>
+              <Image src={product.image} alt="pizza" width={90} height={90} />
+              <p>{product.title}</p>
+              <p>${product.price}</p>
+              <button
+                type="button"
+                className="flex items-center justify-center border w-10 h-10 rounded-lg transition-all hover:bg-red-300"
+                onClick={removeCartProduct(product._id)}
+              >
+                <Trash />
+              </button>
+            </div>
+          ))}
+
           <div className="border border-white border-b-gray-100 flex items-center justify-between gap-5 p-2">
             <Image
               src="/buffalo-chicken-pizza.png"
@@ -73,10 +78,9 @@ export default function Cart() {
                 Phone number
               </label>
               <Input
-                className="w-full bg-transparent"
+                className="w-full bg-transparent font-semibold"
                 type="tel"
                 id="phone"
-                placeholder="Phone number"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
               />
@@ -86,16 +90,15 @@ export default function Cart() {
                 Street Address
               </label>
               <Input
-                className="w-full bg-transparent"
+                className="w-full bg-transparent font-semibold"
                 id="street"
                 type="text"
-                placeholder="Street Address"
                 value={street}
                 onChange={(e) => setStreet(e.target.value)}
               />
             </div>
             <div className="flex flex-col justify-between gap-3 sm:flex-row sm:gap-5">
-              <div className="w-full bg-transparent">
+              <div className="w-full bg-transparent font-semibold">
                 <label
                   htmlFor="postalcode"
                   className="m-0 p-0 text-gray-400 text-sm"
@@ -103,23 +106,21 @@ export default function Cart() {
                   Postal code
                 </label>
                 <Input
-                  className="w-full bg-transparent"
+                  className="w-full bg-transparent font-semibold"
                   type="text"
                   id="postalcode"
-                  placeholder="Postal code"
                   value={postalcode}
                   onChange={(e) => setPostalcode(e.target.value)}
                 />
               </div>
-              <div className="w-full bg-transparent">
+              <div className="w-full bg-transparent font-semibold">
                 <label htmlFor="city" className="m-0 p-0 text-gray-400 text-sm">
                   City
                 </label>
                 <Input
-                  className="w-full bg-transparent"
+                  className="w-full bg-transparent font-semibold"
                   type="text"
                   id="city"
-                  placeholder="City"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
                 />
@@ -133,10 +134,9 @@ export default function Cart() {
                 Country
               </label>
               <Input
-                className="w-full bg-transparent"
+                className="w-full bg-transparent font-semibold"
                 type="text"
                 id="country"
-                placeholder="Country"
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
               />

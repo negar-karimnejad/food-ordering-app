@@ -11,7 +11,11 @@ export default function MenuItemTile({ menuItem, onAddToCart }) {
       <h4 className="font-bold text-lg">{title}</h4>
       <p className="text-gray-700 line-clamp-3">{description}</p>
       <Button onClick={onAddToCart} className="w-full">
-        Add to cart ${basePrice}
+        {sizes?.length > 0 || extraIngredientPrices?.length > 0 ? (
+          <span>Add to cart (from ${basePrice})</span>
+        ) : (
+          <span>Add to cart ${basePrice}</span>
+        )}
       </Button>
     </div>
   );

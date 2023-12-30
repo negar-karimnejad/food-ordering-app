@@ -2,26 +2,56 @@
 
 import Image from "next/image";
 import { useContext, useState } from "react";
-import { CartContext } from "../../app/utils/AuthProvider";
-import Button from "../ui/Button";
-import MenuItemTile from "../shared/MenuItemTile";
 import { toast } from "react-toastify";
+import { CartContext } from "../../app/utils/AuthProvider";
+import MenuItemTile from "../shared/MenuItemTile";
+import Button from "../ui/Button";
+import Input from "../ui/Input";
 
 export default function MenuItem(menuItem) {
   const { image, title, description, basePrice, sizes, extraIngredientPrices } =
     menuItem;
-  console.log(extraIngredientPrices);
+
   const [showAddCartModal, setShowAddCartModal] = useState(false);
+  const [selectedSize, setSelectedSize] = useState(sizes[0] || null);
+  const [selectedIngredient, setSelectedIngredient] = useState(null);
   const { addToCart } = useContext(CartContext);
 
   const handleToAddToCartButtonClick = () => {
-    if (sizes.length === 0 && extraIngredientPrices.length === 0) {
-      addToCart(menuItem);
-      toast.success("Added to cart!");
-    } else {
+    const hasOptions = sizes.length > 0 || extraIngredientPrices.length > 0;
+    if (hasOptions && !showAddCartModal) {
       setShowAddCartModal(true);
+      return;
+    }
+
+    addToCart(menuItem, selectedSize, selectedIngredient);
+    setShowAddCartModal(false);
+    toast.success("Added to cart!");
+  };
+
+  const handleExtraThingClick = (e, ingredient) => {
+    const checked = e.target.checked;
+    if (checked) {
+      setSelectedIngredient((prev) => [prev, ingredient]);
+    } else {
+      setSelectedIngredient((prev) => {
+        return prev.filter((e) => e?.name !== ingredient.name);
+      });
     }
   };
+
+  let selectedPrice = basePrice;
+
+  if (selectedSize) {
+    selectedPrice += selectedSize.price;
+  }
+  if (selectedIngredient?.length) {
+    for (const extra of selectedIngredient) {
+      if (extra?.price) {
+        selectedPrice += extra?.price;
+      }
+    }
+  }
 
   return (
     <>
@@ -31,7 +61,7 @@ export default function MenuItem(menuItem) {
       />
       {showAddCartModal && (
         <div
-          className="flex items-center justify-center z-50 fixed left-0 top-0 w-screen h-screen bg-black/20"
+          className="flex items-center justify-center z-50 fixed left-0 top-0 w-screen h-screen bg-black/80"
           onClick={() => setShowAddCartModal(false)}
         >
           <div
@@ -42,40 +72,63 @@ export default function MenuItem(menuItem) {
               <Image src={image} width={200} height={200} alt="menu image" />
               <h4 className="font-bold text-xl">{title}</h4>
               <p className="text-center text-gray-500">{description}</p>
-              <h4 className="font-medium">Pick your size</h4>
-              <form className="flex flex-col w-full gap-2 text-gray-600">
-                {sizes.length > 0 &&
-                  sizes.map((size) => (
-                    <div
-                      key={size._id}
-                      className="flex gap-2 border p-2 rounded-md"
-                    >
-                      <input type="radio" name="pizza-size" id="" />
-                      <label htmlFor="">
-                        {size.name} ${size.price}
+              {sizes.length > 0 && (
+                <>
+                  <h4 className="font-medium">Pick your size</h4>
+                  <div className="flex flex-col w-full gap-2 text-gray-600">
+                    {sizes.map((size) => (
+                      <label
+                        htmlFor={size.name}
+                        key={size._id}
+                        className="flex gap-2 border p-2 rounded-md"
+                      >
+                        <input
+                          type="radio"
+                          name="pizza-size"
+                          id={size.name}
+                          onClick={() => setSelectedSize(size)}
+                          checked={selectedSize?.name === size.name}
+                          onChange={() => {}}
+                        />
+                        {size.name} ${basePrice + size.price}
                       </label>
-                    </div>
-                  ))}
-              </form>
-              <h4 className="font-medium">Any extras?</h4>
-              <form className="flex flex-col w-full gap-2 text-gray-600">
-                {extraIngredientPrices.length > 0 &&
-                  extraIngredientPrices?.map((extra) => (
-                    <div
-                      key={extra._id}
-                      className="flex gap-2 border p-2 rounded-md"
-                    >
-                      <input type="checkbox" name="extras" id="extras" />
-                      <label htmlFor="extras">
-                        {extra.name} +${extra.price}
+                    ))}
+                  </div>
+                </>
+              )}
+              {extraIngredientPrices.length > 0 && (
+                <>
+                  <h4 className="font-medium">Any extras?</h4>
+                  <div className="flex flex-col w-full gap-2 text-gray-600">
+                    {extraIngredientPrices?.map((ingredient) => (
+                      <label
+                        key={ingredient._id}
+                        className="flex gap-2 border p-2 rounded-md"
+                      >
+                        <Input
+                          type="checkbox"
+                          onChange={(e) => handleExtraThingClick(e, ingredient)}
+                          checked={selectedIngredient
+                            ?.map((e) => e?._id)
+                            .includes(ingredient._id)}
+                        />
+                        {ingredient.name} +${ingredient.price}
                       </label>
-                    </div>
-                  ))}
-              </form>
-              <Button onClick={() => addToCart(menuItem)} className="w-full">
-                Add to cart $12
+                    ))}
+                  </div>
+                </>
+              )}
+
+              <Button
+                onClick={handleToAddToCartButtonClick}
+                className="w-full sticky bottom-2 rounded-lg"
+              >
+                Add to cart ${selectedPrice}
               </Button>
-              <button className="w-full bg-transparent border text-black p-1 rounded-lg">
+              <button
+                onClick={() => setShowAddCartModal(false)}
+                className="w-full bg-transparent border text-black p-1 rounded-lg"
+              >
                 Cancel
               </button>
             </div>

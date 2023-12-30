@@ -24,7 +24,7 @@ export default function Menus() {
       });
     setLoading(false);
   }, []);
-  // console.log(menuItems);
+
   return (
     <section className="px-10 sm:px-24 mt-10">
       {loading ? (

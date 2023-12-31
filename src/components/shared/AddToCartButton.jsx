@@ -7,6 +7,7 @@ export default function AddToCartButton({
   onClick,
   hasSizesOrExtras,
 }) {
+  
   if (!hasSizesOrExtras) {
     return (
       <div className="w-full flex justify-center items-center gap-1 font-semibold bg-primary text-gray-50 px-4 py-1.5 whitespace-nowrap rounded-full hover:opacity-80">
@@ -18,7 +19,7 @@ export default function AddToCartButton({
   }
 
   return (
-    <Button onClick={onClick} className="w-full">
+    <Button type="button" onClick={onClick} className="w-full">
       <span>Add to cart (from ${basePrice})</span>
     </Button>
   );

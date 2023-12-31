@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 import SectionHeader from "../../components/ui/SectionHeader";
@@ -39,38 +39,53 @@ export default function Cart() {
                 key={product._id}
                 className="border border-white border-b-gray-100 flex items-center justify-between font-bold gap-5 p-2"
               >
-                <Image src={product.image} alt="pizza" width={90} height={90} />
-                <p className="flex flex-col">
-                  <span className="font-bold">Classic Chicken</span>
-                  {product.sizes && (
-                    <span className="text-sm font-semibold">Size:Medium</span>
-                  )}
-                  {product.extras?.length > 0 && (
-                    <>
-                      {product.extras.map((extra) => (
-                        <span key={extra._id} className="text-sm text-gray-400">
-                          Extra Cheese $1
-                        </span>
-                      ))}
-                    </>
-                  )}
-                </p>
-                <p className="font-bold">${cartProductPrice(product)}</p>
-                <button
-                  type="button"
-                  className="flex items-center justify-center border w-10 h-10 rounded-lg transition-all hover:bg-red-300"
-                  onClick={() => removeCartProduct(index)}
-                >
-                  <Trash />
-                </button>
+                <div className="flex  items-center gap-5">
+                  <Image
+                    src={product.image}
+                    alt="pizza"
+                    width={90}
+                    height={90}
+                  />
+                  <p className="flex flex-col">
+                    <span className="font-bold">{product.title}</span>
+                    {product.sizes?.length > 0 && (
+                      <span className="text-sm font-semibold text-gray-700">
+                        Size:{product.size?.name}
+                      </span>
+                    )}
+                    {product.extraIngredientPrices?.length > 0 && (
+                      <>
+                        {product.extraIngredientPrices.map((extra) => (
+                          <span
+                            key={extra._id}
+                            className="text-sm text-gray-400"
+                          >
+                            {extra?.name} ${extra?.price}
+                          </span>
+                        ))}
+                      </>
+                    )}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 sm:gap-10">
+                  <p className="font-bold">${cartProductPrice(product)}</p>
+                  <button
+                    type="button"
+                    className="flex items-center justify-center border w-10 h-10 rounded-lg transition-all hover:bg-red-300"
+                    onClick={() => removeCartProduct(index)}
+                  >
+                    <Trash />
+                  </button>
+                </div>
               </div>
             ))
           )}
-
-          <div className="text-right font-bold p-3">
-            <span className="text-gray-400">Subtotal:</span>
-            <span className="text-gray-900">${total}</span>
-          </div>
+          {cartProducts.length !== 0 && (
+            <div className="text-right font-bold p-3">
+              <span className="text-gray-400">Subtotal: </span>
+              <span className="text-gray-900">${total}</span>
+            </div>
+          )}
         </div>
 
         <div className="bg-gray-50 p-5 rounded-lg flex-1">

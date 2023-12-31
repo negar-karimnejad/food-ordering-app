@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Button from "../ui/Button";
-import AddToCartButtom from "./AddToCartButton";
+import AddToCartButton from "./AddToCartButton";
 
 export default function MenuItemTile({ menuItem, onAddToCart }) {
   const { image, title, description, basePrice, sizes, extraIngredientPrices } =
@@ -15,11 +14,11 @@ export default function MenuItemTile({ menuItem, onAddToCart }) {
       <h4 className="font-bold text-lg">{title}</h4>
       <p className="text-gray-700 line-clamp-3">{description}</p>
 
-      <AddToCartButtom
+      <AddToCartButton
         image={image}
-        basePrice={basePrice}
-        onClick={onAddToCart}
         hasSizesOrExtras={hasSizesOrExtras}
+        onClick={onAddToCart}
+        basePrice={basePrice}
       />
     </div>
   );

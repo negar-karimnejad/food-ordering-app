@@ -22,7 +22,9 @@ export default function ExistingCategories({ categories, getCategories }) {
       body: JSON.stringify({ title }),
     });
     if (res.ok) {
-      toast.success("Category updated successfully");
+      toast.success("Category updated successfully", {
+        autoClose: 1200,
+      });
       getCategories();
     }
   };
@@ -35,7 +37,9 @@ export default function ExistingCategories({ categories, getCategories }) {
       },
     });
     if (res.ok) {
-      toast.success("Category deleted successfully");
+      toast.success("Category deleted successfully", {
+        autoClose: 1200,
+      });
       setShowDeleteModal(false);
       getCategories();
     }

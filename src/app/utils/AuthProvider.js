@@ -39,7 +39,9 @@ export default function AuthProvider({ children }) {
       saveCartProductToLocalStorage(newCartProduct);
       return newCartProduct;
     });
-    toast.success("Product removed.");
+    toast.success("Product removed.", {
+      autoClose: 1200,
+    });
   }
 
   function clearCartProduct() {

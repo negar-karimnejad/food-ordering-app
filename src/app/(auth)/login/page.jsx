@@ -20,9 +20,13 @@ export default function Login() {
       callbackUrl: "/",
     });
     if (!res.ok) {
-      toast.error("invalid Credentials.");
+      toast.error("invalid Credentials.", {
+        autoClose: 1200,
+      });
     } else {
-      toast.success("successfully logged in.");
+      toast.success("successfully logged in.", {
+        autoClose: 1200,
+      });
     }
   };
 

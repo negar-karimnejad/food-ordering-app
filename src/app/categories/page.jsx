@@ -38,11 +38,15 @@ export default function Categories() {
         body: JSON.stringify({ title }),
       });
       if (res.ok) {
-        toast.success("Category created successfully");
+        toast.success("Category created successfully", {
+          autoClose: 1200,
+        });
         setTitle("");
         getCategories();
       } else {
-        toast.error("Something went wrong.");
+        toast.error("Something went wrong.", {
+          autoClose: 1200,
+        });
       }
     }
   };

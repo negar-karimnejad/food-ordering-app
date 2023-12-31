@@ -55,10 +55,14 @@ export default function MenuItemForm({ menuItem }) {
       body: JSON.stringify(data),
     });
     if (res.ok) {
-      toast.success("Menu Item updated successfully");
+      toast.success("Menu Item updated successfully", {
+        autoClose: 1200,
+      });
       router.push("/menu-items");
     } else {
-      toast.error("Something went wrong.");
+      toast.error("Something went wrong.", {
+        autoClose: 1200,
+      });
     }
   };
 
@@ -70,11 +74,15 @@ export default function MenuItemForm({ menuItem }) {
       },
     });
     if (res.ok) {
-      toast.success("Menu item delered successfully");
+      toast.success("Menu item delered successfully", {
+        autoClose: 1200,
+      });
       setShowDeleteModal(false);
       router.push("/menu-items");
     } else {
-      toast.error("Something went wrong.");
+      toast.error("Something went wrong.", {
+        autoClose: 1200,
+      });
     }
   };
 

@@ -49,10 +49,14 @@ export default function NewMenuItems() {
     });
 
     if (res.ok) {
-      toast.success("Menu item saved successfully");
+      toast.success("Menu item saved successfully", {
+        autoClose: 1200,
+      });
       router.push("/menu-items");
     } else {
-      toast.error("Something went wrong.");
+      toast.error("Something went wrong.", {
+        autoClose: 1200,
+      });
     }
   };
 

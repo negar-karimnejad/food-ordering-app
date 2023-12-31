@@ -35,10 +35,14 @@ export default function User() {
       body: JSON.stringify(data),
     });
     if (res.ok) {
-      toast.success("User updated successfully.");
+      toast.success("User updated successfully.", {
+      autoClose: 1200,
+    });
       router.push("/users");
     } else {
-      toast.error("Something went wrong.");
+      toast.error("Something went wrong.", {
+      autoClose: 1200,
+    });
     }
   };
 

@@ -25,11 +25,15 @@ export default function Register() {
         body: JSON.stringify({ email, password }),
       });
       if (res.ok) {
-        toast.success("You registered successfully.");
+        toast.success("You registered successfully.", {
+          autoClose: 1200,
+        });
         router.push("/login");
       }
     } catch (error) {
-      toast.error(error);
+      toast.error(error, {
+        autoClose: 1200,
+      });
     }
   };
 

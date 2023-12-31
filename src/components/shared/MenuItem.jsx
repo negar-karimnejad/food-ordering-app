@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 import { useContext, useState } from "react";
-import { toast } from "react-toastify";
+import FlyingButton from "react-flying-item";
 import { CartContext } from "../../app/utils/AuthProvider";
 import MenuItemTile from "../shared/MenuItemTile";
-import Button from "../ui/Button";
 import Input from "../ui/Input";
+import { toast } from "react-toastify";
 
 export default function MenuItem(menuItem) {
   const { image, title, description, basePrice, sizes, extraIngredientPrices } =
@@ -25,8 +25,12 @@ export default function MenuItem(menuItem) {
     }
 
     addToCart(menuItem, selectedSize, selectedIngredient);
-    setShowAddCartModal(false);
-    toast.success("Added to cart!");
+    toast.success("Added to cart", {
+      autoClose: 1200,
+    });
+    setTimeout(() => {
+      setShowAddCartModal(false);
+    }, 1000);
   };
 
   const handleExtraThingClick = (e, ingredient) => {
@@ -118,13 +122,13 @@ export default function MenuItem(menuItem) {
                   </div>
                 </>
               )}
-
-              <Button
-                onClick={handleToAddToCartButtonClick}
-                className="w-full sticky bottom-2 rounded-lg"
-              >
-                Add to cart ${selectedPrice}
-              </Button>
+              <div className="flex justify-center items-center gap-1 font-semibold bg-primary text-gray-50 px-4 py-1.5 whitespace-nowrap hover:opacity-80 w-full sticky bottom-2 rounded-lg">
+                <FlyingButton targetTop={"5%"} targetLeft={"95%"} src={image}>
+                  <div onClick={handleToAddToCartButtonClick}>
+                    Add to cart ${selectedPrice}
+                  </div>
+                </FlyingButton>
+              </div>
               <button
                 onClick={() => setShowAddCartModal(false)}
                 className="w-full bg-transparent border text-black p-1 rounded-lg"

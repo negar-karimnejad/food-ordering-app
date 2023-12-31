@@ -72,7 +72,7 @@ export default function Cart() {
             <span className="text-gray-900">${total}</span>
           </div>
         </div>
-        
+
         <div className="bg-gray-50 p-5 rounded-lg flex-1">
           <h4 className="font-bold">Checkout</h4>
           <form className="flex flex-col gap-3 flex-grow w-full">
@@ -145,7 +145,7 @@ export default function Cart() {
               />
             </div>
             <Button type="submit" className="rounded-lg">
-              Pay $29
+              Pay ${total}
             </Button>
           </form>
         </div>

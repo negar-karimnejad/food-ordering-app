@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-
+html{
+  scroll-behavior: smooth;
+}
 /* HTML: <div class="loader"></div> */
 .loader {
     width: 100px;

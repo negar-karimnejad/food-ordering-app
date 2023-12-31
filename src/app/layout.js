@@ -18,7 +18,7 @@ export default async function RootLayout({ children }) {
   const session = await getServerSession();
 
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <body className={roboto.className}>
         <AuthProvider session={session}>
           <EdgeStoreProvider>

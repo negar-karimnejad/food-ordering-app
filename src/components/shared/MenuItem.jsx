@@ -17,7 +17,7 @@ export default function MenuItem(menuItem) {
   const [selectedIngredient, setSelectedIngredient] = useState(null);
   const { addToCart } = useContext(CartContext);
 
-  const handleToAddToCartButtonClick = () => {
+  const handleToAddToCartButtonClick = async () => {
     const hasOptions = sizes.length > 0 || extraIngredientPrices.length > 0;
     if (hasOptions && !showAddCartModal) {
       setShowAddCartModal(true);
@@ -28,9 +28,8 @@ export default function MenuItem(menuItem) {
     toast.success("Added to cart", {
       autoClose: 1200,
     });
-    setTimeout(() => {
-      setShowAddCartModal(false);
-    }, 1000);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setShowAddCartModal(false);
   };
 
   const handleExtraThingClick = (e, ingredient) => {

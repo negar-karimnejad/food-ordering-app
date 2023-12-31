@@ -7,7 +7,6 @@ export default function AddToCartButton({
   onClick,
   hasSizesOrExtras,
 }) {
-  
   if (!hasSizesOrExtras) {
     return (
       <div className="w-full flex justify-center items-center gap-1 font-semibold bg-primary text-gray-50 px-4 py-1.5 whitespace-nowrap rounded-full hover:opacity-80">

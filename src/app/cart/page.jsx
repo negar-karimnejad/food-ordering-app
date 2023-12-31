@@ -2,22 +2,31 @@
 
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 import SectionHeader from "../../components/ui/SectionHeader";
 import Trash from "../../components/ui/Trash";
 import { CartContext, cartProductPrice } from "../utils/AuthProvider";
+import { useProfile } from "@/hook/useProfile";
 
 export default function Cart() {
-  const session = useSession();
-  const user = session?.data?.user;
+  const { data } = useProfile();
 
-  const [phone, setPhone] = useState(user?.phone || "");
-  const [street, setStreet] = useState(user?.street || "");
-  const [postalcode, setPostalcode] = useState(user?.postalcode || "");
-  const [city, setCity] = useState(user?.city || "");
-  const [country, setCountry] = useState(user?.country || "");
+  console.log(data.phone);
+  const [phone, setPhone] = useState("");
+  const [street, setStreet] = useState("");
+  const [postalcode, setPostalcode] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+
+  useEffect(() => {
+    setPhone(data.phone);
+    setStreet(data.street);
+    setPostalcode(data.postalcode);
+    setCity(data.city);
+    setCountry(data.country);
+  }, [data]);
 
   const { cartProducts, removeCartProduct } = useContext(CartContext);
 
@@ -26,13 +35,47 @@ export default function Cart() {
     total += cartProductPrice(p);
   }
 
+  async function proceedToCheckout(e) {
+    e.preventDefault();
+
+    // const promise = new Promise((resolve, reject) => {
+    //   fetch("/api/checkout", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({
+    //       phone,
+    //       street,
+    //       postalcode,
+    //       city,
+    //       country,
+    //       cartProducts,
+    //     }),
+    //   }).then(async (response) => {
+    //     if (response.ok) {
+    //       resolve();
+    //       window.location = await response.json();
+    //     } else {
+    //       reject();
+    //     }
+    //   });
+    // });
+
+    // await toast.promise(promise, {
+    //   loading: "Preparing your order...",
+    //   success: "Redirecting to payment...",
+    //   error: "Something went wrong... Please try again later",
+    // });
+  }
+
   return (
     <section className="px-10 sm:px-24 my-10">
       <SectionHeader mainTitle="cart" />
       <div className="flex flex-col lg:flex-row mt-10 gap-10">
         <div className="flex-1">
           {cartProducts.length === 0 ? (
-            <p>No products in your shopping cart.</p>
+            <p className="font-medium text-lg text-center">
+              No products in your shopping cart.
+            </p>
           ) : (
             cartProducts?.map((product, index) => (
               <div
@@ -49,7 +92,7 @@ export default function Cart() {
                   <p className="flex flex-col">
                     <span className="font-bold">{product.title}</span>
                     {product.sizes?.length > 0 && (
-                      <span className="text-sm font-semibold text-gray-700">
+                      <span className="text-sm text-gray-700">
                         Size:{product.size?.name}
                       </span>
                     )}
@@ -89,14 +132,17 @@ export default function Cart() {
         </div>
 
         <div className="bg-gray-50 p-5 rounded-lg flex-1">
-          <h4 className="font-bold">Checkout</h4>
-          <form className="flex flex-col gap-3 flex-grow w-full">
+          <h4 className="font-semibold mb-2">Checkout</h4>
+          <form
+            onSubmit={proceedToCheckout}
+            className="flex flex-col gap-3 flex-grow w-full"
+          >
             <div>
               <label htmlFor="phone" className="m-0 p-0 text-gray-400 text-sm">
                 Phone number
               </label>
               <Input
-                className="w-full bg-transparent font-semibold"
+                className="w-full bg-transparent"
                 type="tel"
                 id="phone"
                 value={phone}
@@ -108,7 +154,7 @@ export default function Cart() {
                 Street Address
               </label>
               <Input
-                className="w-full bg-transparent font-semibold"
+                className="w-full bg-transparent"
                 id="street"
                 type="text"
                 value={street}
@@ -116,7 +162,7 @@ export default function Cart() {
               />
             </div>
             <div className="flex flex-col justify-between gap-3 sm:flex-row sm:gap-5">
-              <div className="w-full bg-transparent font-semibold">
+              <div className="w-full bg-transparent">
                 <label
                   htmlFor="postalcode"
                   className="m-0 p-0 text-gray-400 text-sm"
@@ -124,19 +170,19 @@ export default function Cart() {
                   Postal code
                 </label>
                 <Input
-                  className="w-full bg-transparent font-semibold"
+                  className="w-full bg-transparent"
                   type="text"
                   id="postalcode"
                   value={postalcode}
                   onChange={(e) => setPostalcode(e.target.value)}
                 />
               </div>
-              <div className="w-full bg-transparent font-semibold">
+              <div className="w-full bg-transparent">
                 <label htmlFor="city" className="m-0 p-0 text-gray-400 text-sm">
                   City
                 </label>
                 <Input
-                  className="w-full bg-transparent font-semibold"
+                  className="w-full bg-transparent"
                   type="text"
                   id="city"
                   value={city}
@@ -152,7 +198,7 @@ export default function Cart() {
                 Country
               </label>
               <Input
-                className="w-full bg-transparent font-semibold"
+                className="w-full bg-transparent"
                 type="text"
                 id="country"
                 value={country}

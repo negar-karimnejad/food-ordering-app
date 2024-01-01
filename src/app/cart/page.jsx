@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession } from "next-auth/react";
+import { useProfile } from "@/hook/useProfile";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import Button from "../../components/ui/Button";
@@ -8,7 +8,6 @@ import Input from "../../components/ui/Input";
 import SectionHeader from "../../components/ui/SectionHeader";
 import Trash from "../../components/ui/Trash";
 import { CartContext, cartProductPrice } from "../utils/AuthProvider";
-import { useProfile } from "@/hook/useProfile";
 
 export default function Cart() {
   const { data } = useProfile();
@@ -20,11 +19,11 @@ export default function Cart() {
   const [country, setCountry] = useState("");
 
   useEffect(() => {
-    setPhone(data.phone);
-    setStreet(data.street);
-    setPostalcode(data.postalcode);
-    setCity(data.city);
-    setCountry(data.country);
+    setPhone(data.phone || "");
+    setStreet(data.street || "");
+    setPostalcode(data.postalcode || "");
+    setCity(data.city || "");
+    setCountry(data.country || "");
   }, [data]);
 
   const { cartProducts, removeCartProduct } = useContext(CartContext);

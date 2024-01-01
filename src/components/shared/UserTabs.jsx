@@ -9,7 +9,6 @@ const tabs = [
   { id: 2, title: "Categories", link: "/categories" },
   { id: 3, title: "Menu Items", link: "/menu-items" },
   { id: 4, title: "Users", link: "/users" },
-  { id: 5, title: "Orders", link: "/orders" },
 ];
 
 export default function UserTabs({ user }) {

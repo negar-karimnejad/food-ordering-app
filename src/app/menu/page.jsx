@@ -21,8 +21,8 @@ export default function Menus() {
       .then((res) => res.json())
       .then((data) => {
         setCategories(data);
+        setLoading(false);
       });
-    setLoading(false);
   }, []);
 
   return (

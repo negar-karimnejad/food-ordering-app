@@ -72,7 +72,7 @@ export default function Cart() {
         <div className="flex-1">
           {cartProducts.length === 0 ? (
             <p className="font-medium text-lg text-center">
-              No products in your shopping cart.
+              Your shopping cart is Empty😔.
             </p>
           ) : (
             cartProducts?.map((product, index) => (

@@ -71,8 +71,8 @@ export default function Cart() {
       <div className="flex flex-col lg:flex-row mt-10 gap-10">
         <div className="flex-1">
           {cartProducts.length === 0 ? (
-            <p className="font-medium text-lg text-center">
-              Your shopping cart is Empty😔.
+            <p className="text-xl font-bold text-center">
+              Your Shopping Cart is Empty😔
             </p>
           ) : (
             cartProducts?.map((product, index) => (

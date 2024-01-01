@@ -10,7 +10,6 @@ export default function BestSeller() {
         src="/sallad1.png"
         width={100}
         height={100}
-        style={{ width: "20%", height: "auto" }}
         alt="sallad"
       />
       <Image
@@ -18,7 +17,6 @@ export default function BestSeller() {
         src="/sallad2.png"
         width={100}
         height={100}
-        style={{ width: "20%", height: "auto" }}
         alt="sallad"
       />
       <SectionHeader smallTitle="Check out" mainTitle="Our Best Sellers" />

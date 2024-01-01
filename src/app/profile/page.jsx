@@ -19,7 +19,6 @@ export default function Profile() {
     if (status === "authenticated") {
       fetch("/api/profile").then((response) => {
         response.json().then((data) => {
-          console.log(data);
           setUser(data);
           setProfileFetched(true);
         });

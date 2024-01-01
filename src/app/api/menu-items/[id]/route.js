@@ -13,7 +13,6 @@ export async function GET(_, res) {
 export async function PUT(req, res) {
   const data = await req.json();
   const { id: _id } = await res.params;
- console.log(data);
   const updatedMenuItem = await MenuItems.updateOne({ _id }, data);
 
   return NextResponse.json(updatedMenuItem);

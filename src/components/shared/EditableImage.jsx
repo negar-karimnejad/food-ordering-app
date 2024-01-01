@@ -18,7 +18,6 @@ export default function EditableImage({ image, setImage }) {
         file,
       });
       setImage(res?.url);
-      console.log(res);
       setIsUploading(false);
     }
   };

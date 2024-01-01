@@ -13,7 +13,6 @@ import { useProfile } from "@/hook/useProfile";
 export default function Cart() {
   const { data } = useProfile();
 
-  console.log(data.phone);
   const [phone, setPhone] = useState("");
   const [street, setStreet] = useState("");
   const [postalcode, setPostalcode] = useState("");

@@ -8,15 +8,15 @@ export default function BestSeller() {
       <Image
         className="absolute left-0 top-[350px] -z-10"
         src="/sallad1.png"
-        width={100}
-        height={100}
+        width={110}
+        height={110}
         alt="sallad"
       />
       <Image
         className="absolute right-0 top-[350px] -z-10"
         src="/sallad2.png"
-        width={100}
-        height={100}
+        width={110}
+        height={110}
         alt="sallad"
       />
       <SectionHeader smallTitle="Check out" mainTitle="Our Best Sellers" />

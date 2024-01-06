@@ -1,6 +1,6 @@
+import connectDB from "@/app/utils/db";
+import { User } from "model/User";
 import { NextResponse } from "next/server";
-import { User } from "../../../../model/User";
-import connectDB from "../../utils/db";
 
 export async function GET() {
   await connectDB();
